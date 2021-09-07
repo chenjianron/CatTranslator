@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "CatButton-Background.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
