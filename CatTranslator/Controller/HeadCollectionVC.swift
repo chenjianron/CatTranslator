@@ -10,14 +10,17 @@ import SnapKit
 
 class HeadCollectionVC: UIViewController {
     
-    var master: UIViewController?
     var type:headType?
+    var previewPagemaster: PreviewPageVC?
+    var indexPageMaster: MainVC?
     
     private let CellID = "CollectionViewCell"
     
     lazy var backgroundBoard:UIView = {
         let view = UIView()
-        view.layer.cornerRadius = CGFloat(G.share.w(14))
+        view.width = Util.isIPad ? 500: 299
+        view.height = Util.isIPad ? 467 : 279
+        view.layer.cornerRadius = CGFloat(Util.isIPad ? 35 : 14)
         view.layer.masksToBounds = false
         view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         return view
@@ -38,15 +41,15 @@ class HeadCollectionVC: UIViewController {
     lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let object = UICollectionViewFlowLayout()
         object.sectionInset = UIEdgeInsets(top: 0,
-                                           left: 0,
-                                           bottom: 0,
-                                           right: 0)
+                                           left: Util.isIPad ? 26 : 13,
+                                           bottom: 5,
+                                           right: Util.isIPad ? 26 : 13)
         object.scrollDirection = .vertical
-        object.minimumLineSpacing = 5
+        object.minimumLineSpacing =  6
         object.minimumInteritemSpacing = 5
         let count: CGFloat = 3
-        let itemWidth = (backgroundBoard.width - 5) / count - 5
-        let itemHeight = backgroundBoard.height * 0.29 - 5
+        let itemWidth = (backgroundBoard.width - (Util.isIPad ? 52 : 26)) / count - 5
+        let itemHeight = backgroundBoard.height * 0.33 - 6
         object.itemSize = CGSize(width: itemWidth, height: itemHeight)
         return object
     }()
@@ -60,11 +63,25 @@ class HeadCollectionVC: UIViewController {
         object.register(HeadCollectionViewCell.self, forCellWithReuseIdentifier: CellID)
         return object
     }()
+    lazy var indexDataSource:[String] = {
+        switch type {
+        case .cat:
+            return [
+                "Index-CatHead-1","Index-CatHead-2","Index-CatHead-3","Index-CatHead-4","Index-CatHead-5","Index-CatHead-6","Index-CatHead-7"
+            ]
+        case .person:
+            return [
+                "Index-FigureHead-1","Index-FigureHead-2","Index-FigureHead-3","Index-FigureHead-4","Index-FigureHead-5","Index-FigureHead-6"
+            ]
+        default:
+            return [""]
+        }
+    }()
     lazy var dataSource:[String] = {
         switch type {
         case .cat:
             return [
-                "CatHead-5","CatHead-9","CatHead-7","CatHead-10","CatHead-2","CatHead-4","CatHead-1","CatHead-3","CatHead-6","CatHead-8"
+                "CatHead-1","CatHead-2","CatHead-3","CatHead-4","CatHead-5","CatHead-6","CatHead-7"
             ]
         case .person:
             return [
@@ -111,7 +128,12 @@ extension HeadCollectionVC {
     }
     
     @objc func cancel(){
-        master?.dismiss(animated: true, completion: nil)
+        if previewPagemaster != nil {
+            previewPagemaster?.dismiss(animated: true, completion: nil)
+        } else {
+            indexPageMaster?.dismiss(animated: true, completion: nil)
+        }
+        
     }
 }
 
@@ -131,14 +153,30 @@ extension HeadCollectionVC: UICollectionViewDelegate, UICollectionViewDataSource
         if let headerCell = cell as? HeadCollectionViewCell {
             headerCell.type = type
             headerCell.headView.image = UIImage(named: dataSource[indexPath.row])
-      
-            
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if previewPagemaster != nil {
+            switch type {
+            case .cat:
+                previewPagemaster?.setCatName(indexDataSource[indexPath.row])
+            case .person:
+                previewPagemaster?.setPersonName(indexDataSource[indexPath.row])
+            default:
+                break
+            }
+        } else {
+            switch type {
+            case .cat:
+                indexPageMaster?.setCatName(indexDataSource[indexPath.row])
+            case .person:
+                indexPageMaster?.setPersonName(indexDataSource[indexPath.row])
+            default:
+                break
+            }
+        }
     }
     
 }
@@ -171,12 +209,13 @@ extension HeadCollectionVC {
         titleLable.snp.makeConstraints{ (make) in
             make.width.equalTo(Util.isIPad ? 134 : 80)
             make.height.equalTo(Util.isIPad ? 33.4 : 22)
-            make.top.equalToSuperview().offset(Util.isIPad ? 59 : 35)
+            make.top.equalToSuperview().offset(Util.isIPad ? 54 : 35)
             make.centerX.equalToSuperview()
         }
-        collectionView.snp_makeConstraints { (make) in
-            make.top.equalTo(titleLable).offset(20)
-            make.bottom.left.right.equalToSuperview()
+        collectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLable.snp.bottom).offset(G.share.h(16.5))
+            make.bottom.equalToSuperview().offset(Util.isIPad ? -52 : -27)
+            make.left.right.equalToSuperview()
         }
     }
     

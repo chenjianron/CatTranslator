@@ -10,8 +10,16 @@ import SnapKit
 
 class PreviewPageVC: UIViewController {
     
-    var catHeadName = "CatHead-8"
-    var personHeadName = "FigureHead-7"
+    var catHeadName = "Index-CatHead-7" {
+        didSet {
+            self.catImageView.headView.image = UIImage(named: catHeadName)
+        }
+    }
+    var personHeadName = "Index-FigureHead-2" {
+        didSet {
+            self.personImageView.headView.image = UIImage(named: personHeadName)
+        }
+    }
     
     lazy var rightBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(title: __("跳过"), style: .plain, target: self, action: #selector(rightBarButtonItemClick(_:)))
@@ -19,13 +27,13 @@ class PreviewPageVC: UIViewController {
     lazy var catImageView:HeadView = {
         let headView = HeadView()
         headView.setType(.cat)
-        headView.master = self
+        headView.previewPagemaster = self
         return headView
     }()
     lazy var personImageView:HeadView = {
         let headView = HeadView()
         headView.setType(.person)
-        headView.master = self
+        headView.previewPagemaster = self
         return headView
     }()
     lazy var exchangeView:UIImageView = {
@@ -114,8 +122,8 @@ class PreviewPageVC: UIViewController {
 extension PreviewPageVC {
     
     @objc func rightBarButtonItemClick(_ sender: UIBarButtonItem) {
-        UserDefaults.standard.setValue(catHeadName, forKey: "CatHeadName")
-        UserDefaults.standard.setValue(personHeadName, forKey: "PersonHeadName")
+        UserDefaults.standard.setValue("Index-CatHead-7", forKey: "CatHeadName")
+        UserDefaults.standard.setValue("Index-FigureHead-2", forKey: "PersonHeadName")
         UserDefaults.standard.setValue("猫咪", forKey: "CatName")
         self.navigationController?.pushViewController(MainVC(), animated: false)
     }
@@ -124,12 +132,12 @@ extension PreviewPageVC {
         if button.tag == 1 {
             let headCollectionVC = HeadCollectionVC()
             headCollectionVC.type = .cat
-            headCollectionVC.master = self
+            headCollectionVC.previewPagemaster = self
             self.present(headCollectionVC, animated: false, completion: nil)
         } else {
             let headCollectionVC = HeadCollectionVC()
             headCollectionVC.type = .person
-            headCollectionVC.master = self
+            headCollectionVC.previewPagemaster = self
             self.present(headCollectionVC, animated: false, completion: nil)
         }
     }
@@ -139,16 +147,13 @@ extension PreviewPageVC {
     }
     
     @objc func save(){
-//        UserDefaults.standard.setValue(catHeadName, forKey: "CatHeadName")
-//        UserDefaults.standard.setValue(personHeadName, forKey: "PersonHeadName")
-//        if inputTextField.text?.count == 0 {
-//            UserDefaults.standard.setValue("猫咪", forKey: "CatName")
-//        } else {
-//            UserDefaults.standard.setValue(inputTextField.text, forKey: "CatName")
-//        }
-        print(catHeadName)
-        print(personHeadName)
-        print(inputTextField.text ?? __("猫咪"))
+        UserDefaults.standard.setValue(catHeadName, forKey: "CatHeadName")
+        UserDefaults.standard.setValue(personHeadName, forKey: "PersonHeadName")
+        if inputTextField.text?.count == 0 {
+            UserDefaults.standard.setValue("猫咪", forKey: "CatName")
+        } else {
+            UserDefaults.standard.setValue(inputTextField.text, forKey: "CatName")
+        }
         self.navigationController?.pushViewController(MainVC(), animated: false)
     }
  
@@ -157,6 +162,14 @@ extension PreviewPageVC {
 //MARK: - Public
 extension PreviewPageVC {
     
+    func setCatName(_ name:String){
+        catHeadName = name
+        dismiss(animated: true, completion: nil)
+    }
+    func setPersonName(_ name: String){
+        personHeadName = name
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 //MARK: - TextView

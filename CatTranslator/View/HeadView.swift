@@ -11,41 +11,45 @@ import SnapKit
 class HeadView: UIView {
     
     var type:headType?
-    var master: UIViewController?
-    
-    lazy var emptyView: UIView = {
-        let view = UIView()
-        view.isUserInteractionEnabled = true
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectHead)))
-       return view
-    }()
-    lazy var backgroundView: UIImageView = {
-        let imageView = UIImageView()
-        switch type {
-        case .cat:
-            imageView.image = #imageLiteral(resourceName: "CatBackground")
-        case .person:
-            imageView.image = #imageLiteral(resourceName: "PersonBackground")
-        default:
-            break
+    var previewPagemaster: PreviewPageVC?{
+        didSet {
+            switch type {
+            case .cat:
+                self.headView.image = #imageLiteral(resourceName: "Index-CatHead-7")
+            case .person:
+                self.headView.image = #imageLiteral(resourceName: "Index-FigureHead-2")
+            default:
+                break
+            }
         }
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
+    }
+    var indexPageMaster: MainVC? {
+        didSet {
+            switch type {
+            case .cat:
+                self.headView.image = #imageLiteral(resourceName: "Index-CatHead-7")
+            case .person:
+                self.headView.image = #imageLiteral(resourceName: "Index-FigureHead-2")
+            default:
+                break
+            }
+        }
+    }
+    
     lazy var headView: UIImageView = {
         let imageView = UIImageView()
         switch type {
         case .cat:
-            if !UserDefaults.standard.bool(forKey: "Cat"){
-                imageView.image = #imageLiteral(resourceName: "CatHead-8")
+            if !UserDefaults.standard.bool(forKey: "CatHeadName"){
+                imageView.image = #imageLiteral(resourceName: "Index-CatHead-7")
             } else {
-                imageView.image = UIImage(named: UserDefaults.standard.value(forKey: "Cat") as! String)
+                imageView.image = UIImage(named: UserDefaults.standard.value(forKey: "CatHeadName") as! String)
             }
         case .person:
-            if !UserDefaults.standard.bool(forKey: "Person"){
-                imageView.image = #imageLiteral(resourceName: "FigureHead-7")
+            if !UserDefaults.standard.bool(forKey: "PersonHeadName"){
+                imageView.image = #imageLiteral(resourceName: "Index-FigureHead-2")
             } else {
-                imageView.image = UIImage(named: UserDefaults.standard.value(forKey: "Person") as! String)
+                imageView.image = UIImage(named: UserDefaults.standard.value(forKey: "PersonHeadName") as! String)
             }
         default:
             break
@@ -65,32 +69,21 @@ class HeadView: UIView {
     
     func setUpUI(){
         
-        addSubview(emptyView)
-        emptyView.addSubview(backgroundView)
-        backgroundView.addSubview(headView)
+        addSubview(headView)
         
-        emptyView.snp.makeConstraints{ make in
-            make.width.equalTo(G.share.h(110.68))
-            make.height.equalTo(G.share.h(110.68))
-        }
-        backgroundView.snp.makeConstraints{ make in
-            make.width.equalTo(G.share.h(110.68))
-            make.height.equalTo(G.share.h(110.68))
-        }
         headView.snp.makeConstraints{ make in
             switch type {
             case .cat:
-                make.width.equalTo(G.share.h(80.55))
-                make.height.equalTo(G.share.h(75.67))
-                make.top.equalToSuperview().offset(G.share.h(28.33))
+                make.width.equalTo(G.share.h(110))
+                make.height.equalTo(G.share.h(110))
             case .person:
-                make.width.equalTo(G.share.h(69.96))
-                make.height.equalTo(G.share.h(86.5))
-                make.top.equalToSuperview().offset(G.share.h(18))
+                make.width.equalTo(G.share.h(110.68))
+                make.height.equalTo(G.share.h(110.68))
             default:
                 break
             }
             make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     
@@ -100,19 +93,36 @@ class HeadView: UIView {
     }
     
     @objc func selectHead(){
-        switch type {
-        case .cat:
-            let headCollectionVC = HeadCollectionVC()
-            headCollectionVC.type = .cat
-            headCollectionVC.master = master
-            master!.present(headCollectionVC, animated: false, completion: nil)
-        case .person:
-            let headCollectionVC = HeadCollectionVC()
-            headCollectionVC.type = .person
-            headCollectionVC.master = master
-            master!.present(headCollectionVC, animated: false, completion: nil)
-        default:
-            break
+        if previewPagemaster != nil {
+            switch type {
+            case .cat:
+                let headCollectionVC = HeadCollectionVC()
+                headCollectionVC.type = .cat
+                headCollectionVC.previewPagemaster = previewPagemaster
+                previewPagemaster!.present(headCollectionVC, animated: true, completion: nil)
+            case .person:
+                let headCollectionVC = HeadCollectionVC()
+                headCollectionVC.type = .person
+                headCollectionVC.previewPagemaster = previewPagemaster
+                previewPagemaster!.present(headCollectionVC, animated: true, completion: nil)
+            default:
+                break
+            }
+        } else {
+            switch type {
+            case .cat:
+                let headCollectionVC = HeadCollectionVC()
+                headCollectionVC.type = .cat
+                headCollectionVC.indexPageMaster = indexPageMaster
+                indexPageMaster?.present(headCollectionVC, animated: true, completion: nil)
+            case .person:
+                let headCollectionVC = HeadCollectionVC()
+                headCollectionVC.type = .person
+                headCollectionVC.indexPageMaster = indexPageMaster
+                indexPageMaster?.present(headCollectionVC, animated: true, completion: nil)
+            default:
+                break
+            }
         }
     }
 }

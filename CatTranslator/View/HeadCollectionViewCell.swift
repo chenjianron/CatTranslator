@@ -48,9 +48,12 @@ class HeadCollectionViewCell: UICollectionViewCell {
             case .cat:
                 make.width.equalToSuperview().multipliedBy(0.875)
                 make.height.equalToSuperview().multipliedBy(0.716)
+                backgroundImage.image = #imageLiteral(resourceName: "CatHeadBackground")
             case .person:
                 make.width.equalToSuperview().multipliedBy(0.68)
                 make.height.equalToSuperview().multipliedBy(0.91)
+                make.bottom.equalToSuperview()
+                backgroundImage.image = #imageLiteral(resourceName: "PersonHeadBackground")
             default:
                 break
             }
