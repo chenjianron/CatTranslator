@@ -25,7 +25,7 @@ class RTMAudioRecord: NSObject{
         let session:AVAudioSession = AVAudioSession.sharedInstance()
          
         //设置录音类型 外放模式
-        try! session.setCategory(AVAudioSession.Category.playAndRecord)
+        try! session.setCategory(AVAudioSession.Category.playAndRecord,options: [.defaultToSpeaker,.allowBluetooth])
         //设置支持后台
         try! session.setActive(true)
         //获取Document目录
