@@ -18,7 +18,7 @@ class MainVC: UIViewController {
     
     var currentType:headType?
     
-    let audio = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]
+    let audio = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
     
     var catHeadName = UserDefaults.standard.value(forKey: "CatHeadName"){
         didSet {
@@ -297,7 +297,7 @@ extension MainVC {
     // 首次播放人语转猫语的录音
     @objc func firstPlay(){
         
-        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...19)], withExtension: ".wav") else {
+        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...18)], withExtension: ".wav") else {
             return
         }
         if first {
