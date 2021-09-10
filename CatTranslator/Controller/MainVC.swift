@@ -168,7 +168,7 @@ extension MainVC {
             record!.upAction()
             return
         }
-        if (record!.recorder!.peakPower(forChannel: 0)) < -35 {
+        if (record!.recorder!.peakPower(forChannel: 0)) < -38 {
             catLanguagelabel.text = __("没有听清猫猫的声音哦..")
             record!.upAction()
             return
@@ -180,7 +180,7 @@ extension MainVC {
     
     //判断人录音后的录音时长和音量
     func judgePersonRecord(){
-        
+        print(record!.recorder!.peakPower(forChannel: 0))
         if record!.recorder!.currentTime <= 3 {
             personLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
             record!.upAction()
@@ -239,6 +239,14 @@ extension MainVC {
     }
     
     func personRecordBtnStatus(status:Bool){
+        if personLanguageBackground.isHidden == true {
+            first = true
+            audioBtn.isHidden = true
+            personLanguageBackground.isHidden = false
+            if record?.player?.isPlaying == true {
+                record?.player?.stop()
+            }
+        }
         if !status {
             personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn-Gif"), for: .normal)
         }else {
@@ -301,15 +309,15 @@ extension MainVC {
             return
         }
         if first {
-            audioBtn.isEnabled = false
-            catRecordBtn.isEnabled = false
+            audioBtn.isUserInteractionEnabled = false
+            catRecordBtn.isUserInteractionEnabled = false
             record?.playAction(url,self)
         } else {
             if record?.player?.isPlaying == true {
                 record?.player?.stop()
             } else {
-                catRecordBtn.isEnabled = false
-                record?.playAction(url,self)
+                catRecordBtn.isUserInteractionEnabled = false
+                record?.player?.play()
             }
         }
         
@@ -320,11 +328,11 @@ extension MainVC {
 extension MainVC: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool){
         if first {
-            audioBtn.isEnabled = true
-            catRecordBtn.isEnabled = true
+            audioBtn.isUserInteractionEnabled = true
+            catRecordBtn.isUserInteractionEnabled = true
             first = false
         } else {
-            catRecordBtn.isEnabled = true
+            catRecordBtn.isUserInteractionEnabled = true
         }
         
     }
