@@ -42,7 +42,7 @@ class HeadCollectionVC: UIViewController {
         let object = UICollectionViewFlowLayout()
         object.sectionInset = UIEdgeInsets(top: 0,
                                            left: Util.isIPad ? 26 : 13,
-                                           bottom: 5,
+                                           bottom: 6,
                                            right: Util.isIPad ? 26 : 13)
         object.scrollDirection = .vertical
         object.minimumLineSpacing =  6

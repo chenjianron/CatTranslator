@@ -122,10 +122,32 @@ class PreviewPageVC: UIViewController {
 extension PreviewPageVC {
     
     @objc func rightBarButtonItemClick(_ sender: UIBarButtonItem) {
+        
         UserDefaults.standard.setValue("Index-CatHead-7", forKey: "CatHeadName")
         UserDefaults.standard.setValue("Index-FigureHead-2", forKey: "PersonHeadName")
         UserDefaults.standard.setValue("猫咪", forKey: "CatName")
-        self.navigationController?.pushViewController(MainVC(), animated: false)
+//        self.navigationController?.pushViewController(MainVC(), animated: false)
+        
+        let tabbarController = UITabBarController()
+        
+        let mainVC = SSNavigationController(rootViewController: MainVC())
+        mainVC.tabBarItem.title = "翻译"
+        mainVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: K.Color.ThemeColor], for: .selected)
+        mainVC.tabBarItem.image = #imageLiteral(resourceName: "TarBarImage1-Selected")
+        mainVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "TarBarImage1")
+        tabbarController.addChild(mainVC)
+        
+        let playCatVC = SSNavigationController(rootViewController: PlayCatVC())
+        playCatVC.tabBarItem.title = "逗猫"
+        playCatVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: K.Color.ThemeColor], for: .selected)
+        playCatVC.tabBarItem.image = #imageLiteral(resourceName: "TarBarImage2")
+        playCatVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "TarBarImage2-Selected")
+        tabbarController.addChild(playCatVC)
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = tabbarController
+        appDelegate.window?.backgroundColor = .white
+        
     }
     
     @objc func selectHead(button:UIButton){

@@ -95,14 +95,14 @@ class MainVC: UIViewController {
         button.addTarget(self, action: #selector(personRecord), for: .touchUpOutside)
         return button
     }()
-    lazy var catlabel: UILabel = {
+    lazy var catBtnlabel: UILabel = {
         let label = UILabel()
         label.text = __("长按")
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
-    lazy var personlabel: UILabel = {
+    lazy var personBtnlabel: UILabel = {
         let label = UILabel()
         label.text = __("长按")
         label.textAlignment = .center
@@ -131,6 +131,12 @@ class MainVC: UIViewController {
         button.addTarget(self, action: #selector(firstPlay), for: .touchUpInside)
         button.isHidden = true
         return button
+    }()
+    lazy var audioLable:UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.textColor = K.Color.ThemeColor
+        return label
     }()
 
     override func viewDidLoad() {
@@ -186,13 +192,15 @@ extension MainVC {
             record!.upAction()
             return
         }
-        if (record!.recorder!.peakPower(forChannel: 0)) < -35 {
+        if (record!.recorder!.peakPower(forChannel: 0)) < -37 {
             personLanguagelabel.text = __("声音太小啦，没有听清…")
             record!.upAction()
             return
         }
         personLanguageBackground.isHidden = true
+        audioLable.text = Int(record!.recorder!.currentTime).description + "″"
         audioBtn.isHidden = false
+        audioBtn.isUserInteractionEnabled = true
         first = true
         record!.upAction()
     }
@@ -240,12 +248,12 @@ extension MainVC {
     
     func personRecordBtnStatus(status:Bool){
         if personLanguageBackground.isHidden == true {
-            first = true
-            audioBtn.isHidden = true
-            personLanguageBackground.isHidden = false
             if record?.player?.isPlaying == true {
                 record?.player?.stop()
             }
+            first = true
+            audioBtn.isHidden = true
+            personLanguageBackground.isHidden = false
         }
         if !status {
             personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn-Gif"), for: .normal)
@@ -320,7 +328,6 @@ extension MainVC {
                 record?.player?.play()
             }
         }
-        
     }
 }
 
@@ -334,7 +341,6 @@ extension MainVC: AVAudioPlayerDelegate {
         } else {
             catRecordBtn.isUserInteractionEnabled = true
         }
-        
     }
 }
 
@@ -349,16 +355,18 @@ extension MainVC {
         catBackgroundBoard.addSubview(catImageView)
         catBackgroundBoard.addSubview(catLanguageBackground)
         catBackgroundBoard.addSubview(catRecordBtn)
-        catBackgroundBoard.addSubview(catlabel)
+        catBackgroundBoard.addSubview(catBtnlabel)
         catLanguageBackground.addSubview(catLanguagelabel)
         
         personBackgroundBoard.addSubview(personLanguageBackground)
         personBackgroundBoard.addSubview(personImageView)
         personBackgroundBoard.addSubview(personRecordBtn)
-        personBackgroundBoard.addSubview(personlabel)
+        personBackgroundBoard.addSubview(personBtnlabel)
         personBackgroundBoard.addSubview(personLanguagelabel)
         personBackgroundBoard.addSubview(audioBtn)
+        
         personLanguageBackground.addSubview(personLanguagelabel)
+        audioBtn.addSubview(audioLable)
         setUpConstrains()
     }
     
@@ -375,7 +383,6 @@ extension MainVC {
             make.top.equalTo(catBackgroundBoard.snp.bottom).offset(G.share.w(11))
             make.centerX.equalToSuperview()
         }
-        
         catImageView.snp.makeConstraints{ make in
             make.width.equalTo(G.share.h(103))
             make.height.equalTo(G.share.h(103))
@@ -403,22 +410,22 @@ extension MainVC {
         catRecordBtn.snp.makeConstraints{ make in
             make.width.equalTo(G.share.w(63))
             make.height.equalTo(G.share.h(41))
-            make.bottom.equalTo(-G.share.h(35.5))
+            make.bottom.equalTo(-35.5)
             make.centerX.equalToSuperview()
         }
         personRecordBtn.snp.makeConstraints{ make in
             make.width.equalTo(G.share.w(63))
             make.height.equalTo(G.share.h(41))
-            make.bottom.equalTo(-G.share.h(35.5))
+            make.bottom.equalTo(-35.5)
             make.centerX.equalToSuperview()
         }
-        catlabel.snp.makeConstraints { make in
+        catBtnlabel.snp.makeConstraints { make in
 //            make.width.equalTo(G.share.w(24))
 //            make.height.equalTo(G.share.h(17))
             make.bottom.equalTo(-G.share.h(12))
             make.centerX.equalToSuperview()
         }
-        personlabel.snp.makeConstraints { make in
+        personBtnlabel.snp.makeConstraints { make in
 //            make.width.equalTo(G.share.w(24))
 //            make.height.equalTo(G.share.h(17))
             make.bottom.equalTo(-G.share.h(12))
@@ -439,6 +446,11 @@ extension MainVC {
             make.height.equalTo(G.share.h(34))
             make.top.equalToSuperview().offset(G.share.h(25))
             make.left.equalToSuperview().offset(G.share.w(28.2))
+        }
+        audioLable.snp.makeConstraints{ make in
+            make.height.equalTo(G.share.h(17))
+            make.left.equalTo(G.share.w(25.31))
+            make.centerY.equalToSuperview()
         }
     }
     
