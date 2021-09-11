@@ -9,6 +9,18 @@ import UIKit
 import Toolkit
 
 class PlayCatVC: UIViewController {
+    
+    lazy var dataSource:[[String:String]] = {
+        return [
+            ["image":"","text":"","audio":""],
+            ["image":"","text":"","audio":""],
+            ["image":"","text":"","audio":""],
+            ["image":"","text":"","audio":""],
+            ["image":"","text":"","audio":""],
+            ["image":"","text":"","audio":""],
+            ["image":"","text":"","audio":""],
+        ]
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()

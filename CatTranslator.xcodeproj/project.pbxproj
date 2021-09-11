@@ -57,6 +57,7 @@
 		67CE70B426EB032A008E908A /* 卖萌.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67CE70B326EB032A008E908A /* 卖萌.wav */; };
 		67CE70B626EB0335008E908A /* 炸毛.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67CE70B526EB0335008E908A /* 炸毛.wav */; };
 		67CE70B826EB4B9A008E908A /* PlayCatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE70B726EB4B9A008E908A /* PlayCatVC.swift */; };
+		67CE70BA26ECEC6B008E908A /* PlayCatCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE70B926ECEC6B008E908A /* PlayCatCollectionViewCell.swift */; };
 		F9ECB2A252C67E45674925D8 /* Pods_CatTranslator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DEA549E7CA10477EBAD121E /* Pods_CatTranslator.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,7 @@
 		67CE70B326EB032A008E908A /* 卖萌.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "卖萌.wav"; sourceTree = "<group>"; };
 		67CE70B526EB0335008E908A /* 炸毛.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "炸毛.wav"; sourceTree = "<group>"; };
 		67CE70B726EB4B9A008E908A /* PlayCatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCatVC.swift; sourceTree = "<group>"; };
+		67CE70B926ECEC6B008E908A /* PlayCatCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCatCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DEA549E7CA10477EBAD121E /* Pods_CatTranslator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CatTranslator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE789EAB2B06DFAE1CBA43B7 /* Pods-CatTranslator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatTranslator.release.xcconfig"; path = "Target Support Files/Pods-CatTranslator/Pods-CatTranslator.release.xcconfig"; sourceTree = "<group>"; };
 		D02670C293E1F87077D6CA8E /* Pods-CatTranslator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatTranslator.debug.xcconfig"; path = "Target Support Files/Pods-CatTranslator/Pods-CatTranslator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				6781123526E4B47100BE1BBD /* HeadView.swift */,
 				6794C31D26E6E68E00FF28C8 /* HeadCollectionViewCell.swift */,
+				67CE70B926ECEC6B008E908A /* PlayCatCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				6794C31E26E6E68E00FF28C8 /* HeadCollectionViewCell.swift in Sources */,
 				67CE70B826EB4B9A008E908A /* PlayCatVC.swift in Sources */,
 				674F294226E0A90300A9D2B2 /* AppDelegate.swift in Sources */,
+				67CE70BA26ECEC6B008E908A /* PlayCatCollectionViewCell.swift in Sources */,
 				674F295A26E0AE0400A9D2B2 /* Constant.swift in Sources */,
 				674F296026E0B45100A9D2B2 /* UIViewController.swift in Sources */,
 			);

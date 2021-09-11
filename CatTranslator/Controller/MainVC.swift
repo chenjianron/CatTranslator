@@ -127,7 +127,7 @@ class MainVC: UIViewController {
     }()
     lazy var audioBtn: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(#imageLiteral(resourceName: "RecordBackground"), for: .normal)
+        button.setBackgroundImage(#imageLiteral(resourceName: "RecordLogo"), for: .normal)
         button.addTarget(self, action: #selector(firstPlay), for: .touchUpInside)
         button.isHidden = true
         return button
