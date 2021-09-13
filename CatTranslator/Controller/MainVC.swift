@@ -64,15 +64,13 @@ class MainVC: UIViewController {
         return imageView
     }()
     lazy var catImageView:HeadView = {
-        let headView = HeadView()
-        headView.setType(.cat)
+        let headView = HeadView(frame: .zero, type: .cat)
         headView.indexPageMaster = self
         headView.headView.image = UIImage(named: catHeadName as! String)
         return headView
     }()
     lazy var personImageView:HeadView = {
-        let headView = HeadView()
-        headView.setType(.person)
+        let headView = HeadView(frame: .zero, type: .person)
         headView.indexPageMaster = self
         headView.headView.image = UIImage(named: personHeadName as! String)
         return headView

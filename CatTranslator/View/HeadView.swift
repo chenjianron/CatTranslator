@@ -59,8 +59,10 @@ class HeadView: UIView {
         return imageView
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect,type: headType) {
         super.init(frame: frame)
+        self.type = type
+        setUpUI()
     }
     
     required init?(coder: NSCoder) {
@@ -85,11 +87,6 @@ class HeadView: UIView {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
-    }
-    
-    func setType(_ type: headType){
-        self.type = type
-        setUpUI()
     }
     
     @objc func selectHead(){

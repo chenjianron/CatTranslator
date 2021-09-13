@@ -25,14 +25,12 @@ class PreviewPageVC: UIViewController {
         return UIBarButtonItem(title: __("跳过"), style: .plain, target: self, action: #selector(rightBarButtonItemClick(_:)))
     }()
     lazy var catImageView:HeadView = {
-        let headView = HeadView()
-        headView.setType(.cat)
+        let headView = HeadView(frame: .zero, type: .cat)
         headView.previewPagemaster = self
         return headView
     }()
     lazy var personImageView:HeadView = {
-        let headView = HeadView()
-        headView.setType(.person)
+        let headView = HeadView(frame: .zero, type: .person)
         headView.previewPagemaster = self
         return headView
     }()
@@ -129,6 +127,7 @@ extension PreviewPageVC {
 //        self.navigationController?.pushViewController(MainVC(), animated: false)
         
         let tabbarController = UITabBarController()
+        tabbarController.tabBar.barTintColor = UIColor.white
         
         let mainVC = SSNavigationController(rootViewController: MainVC())
         mainVC.tabBarItem.title = "翻译"
