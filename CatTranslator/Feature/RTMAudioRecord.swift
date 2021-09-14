@@ -29,8 +29,7 @@ class RTMAudioRecord: NSObject{
         //设置支持后台
         try! session.setActive(true)
         //获取Document目录
-        let docDir = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                         .userDomainMask, true)[0]
+        let docDir = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0]
         print(docDir)
         //组合录音文件路径
         aacPath = docDir + "/play.aac"
@@ -48,8 +47,7 @@ class RTMAudioRecord: NSObject{
     //按下录音
     @IBAction func downAction(){
         //初始化录音器
-        recorder = try! AVAudioRecorder(url: URL(string: aacPath!)!,
-                                        settings: recorderSeetingsDic!)
+        recorder = try! AVAudioRecorder(url: URL(string: aacPath!)!,settings: recorderSeetingsDic!)
         if recorder != nil {
             //开启仪表计数功能
             recorder!.isMeteringEnabled = true
@@ -79,11 +77,9 @@ class RTMAudioRecord: NSObject{
     }
      
     //播放录制的声音
-    @IBAction func playAction(_ url: URL,_ mainVC:MainVC){
-        
+    @IBAction func playAction(_ url: URL){
         //播放
         player = try! AVAudioPlayer(contentsOf: url)
-        player?.delegate = mainVC
         
         if player == nil {
             print("播放失败")

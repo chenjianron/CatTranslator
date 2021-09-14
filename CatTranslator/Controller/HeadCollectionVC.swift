@@ -54,14 +54,14 @@ class HeadCollectionVC: UIViewController {
         return object
     }()
     lazy var collectionView : UICollectionView = {
-        let object = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewLayout)
-        object.showsHorizontalScrollIndicator = false
-        object.showsVerticalScrollIndicator = true
-        object.delegate = self
-        object.dataSource = self
-        object.backgroundColor = .white
-        object.register(HeadCollectionViewCell.self, forCellWithReuseIdentifier: CellID)
-        return object
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewLayout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = true
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .white
+        collectionView.register(HeadCollectionViewCell.self, forCellWithReuseIdentifier: CellID)
+        return collectionView
     }()
     lazy var indexDataSource:[String] = {
         switch type {

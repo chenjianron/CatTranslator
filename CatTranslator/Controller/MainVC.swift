@@ -125,7 +125,7 @@ class MainVC: UIViewController {
     }()
     lazy var audioBtn: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(#imageLiteral(resourceName: "RecordLogo"), for: .normal)
+        button.setBackgroundImage(#imageLiteral(resourceName: "RecordBackground"), for: .normal)
         button.addTarget(self, action: #selector(firstPlay), for: .touchUpInside)
         button.isHidden = true
         return button
@@ -145,6 +145,9 @@ class MainVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        if record?.player?.isPlaying == true {
+            record?.player?.stop()
+        }
     }
 }
 
@@ -184,13 +187,14 @@ extension MainVC {
     
     //判断人录音后的录音时长和音量
     func judgePersonRecord(){
+        
         print(record!.recorder!.peakPower(forChannel: 0))
         if record!.recorder!.currentTime <= 3 {
             personLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
             record!.upAction()
             return
         }
-        if (record!.recorder!.peakPower(forChannel: 0)) < -37 {
+        if (record!.recorder!.peakPower(forChannel: 0)) < -38 {
             personLanguagelabel.text = __("声音太小啦，没有听清…")
             record!.upAction()
             return
@@ -317,7 +321,8 @@ extension MainVC {
         if first {
             audioBtn.isUserInteractionEnabled = false
             catRecordBtn.isUserInteractionEnabled = false
-            record?.playAction(url,self)
+            record?.playAction(url)
+            record?.player?.delegate = self
         } else {
             if record?.player?.isPlaying == true {
                 record?.player?.stop()

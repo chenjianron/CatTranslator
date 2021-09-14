@@ -58,6 +58,7 @@
 		67CE70B626EB0335008E908A /* 炸毛.wav in Resources */ = {isa = PBXBuildFile; fileRef = 67CE70B526EB0335008E908A /* 炸毛.wav */; };
 		67CE70B826EB4B9A008E908A /* PlayCatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE70B726EB4B9A008E908A /* PlayCatVC.swift */; };
 		67CE70BA26ECEC6B008E908A /* PlayCatCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE70B926ECEC6B008E908A /* PlayCatCollectionViewCell.swift */; };
+		67CE70BE26EEFFAE008E908A /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CE70BD26EEFFAE008E908A /* SettingTableViewCell.swift */; };
 		F9ECB2A252C67E45674925D8 /* Pods_CatTranslator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DEA549E7CA10477EBAD121E /* Pods_CatTranslator.framework */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		67CE70B526EB0335008E908A /* 炸毛.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "炸毛.wav"; sourceTree = "<group>"; };
 		67CE70B726EB4B9A008E908A /* PlayCatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCatVC.swift; sourceTree = "<group>"; };
 		67CE70B926ECEC6B008E908A /* PlayCatCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCatCollectionViewCell.swift; sourceTree = "<group>"; };
+		67CE70BD26EEFFAE008E908A /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		8DEA549E7CA10477EBAD121E /* Pods_CatTranslator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CatTranslator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE789EAB2B06DFAE1CBA43B7 /* Pods-CatTranslator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatTranslator.release.xcconfig"; path = "Target Support Files/Pods-CatTranslator/Pods-CatTranslator.release.xcconfig"; sourceTree = "<group>"; };
 		D02670C293E1F87077D6CA8E /* Pods-CatTranslator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CatTranslator.debug.xcconfig"; path = "Target Support Files/Pods-CatTranslator/Pods-CatTranslator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				6781123526E4B47100BE1BBD /* HeadView.swift */,
 				6794C31D26E6E68E00FF28C8 /* HeadCollectionViewCell.swift */,
 				67CE70B926ECEC6B008E908A /* PlayCatCollectionViewCell.swift */,
+				67CE70BD26EEFFAE008E908A /* SettingTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				67CE706626E8AA0F008E908A /* RTMAudioRecord.swift in Sources */,
 				674F296526E0C9B100A9D2B2 /* Helper.swift in Sources */,
 				674F296326E0BCBD00A9D2B2 /* MainVC.swift in Sources */,
+				67CE70BE26EEFFAE008E908A /* SettingTableViewCell.swift in Sources */,
 				674F295726E0ADA000A9D2B2 /* SSNavigationController.swift in Sources */,
 				6754544F26E6491D008D3DD0 /* HeadCollectionVC.swift in Sources */,
 				6794C31E26E6E68E00FF28C8 /* HeadCollectionViewCell.swift in Sources */,
