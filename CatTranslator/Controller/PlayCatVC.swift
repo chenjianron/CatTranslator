@@ -71,11 +71,7 @@ class PlayCatVC: UIViewController {
           withReuseIdentifier: "Header")
         return collectionView
     }()
-    lazy var record:RTMAudioRecord? = {
-        let record = RTMAudioRecord()
-       return record
-    }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -131,7 +127,7 @@ extension PlayCatVC {
 //MARK: - Interaction
 extension PlayCatVC {
     
-    @objc func setting(cell:PlayCatCollectionViewCell,url:URL){
+    @objc func setting(){
         
     }
 }

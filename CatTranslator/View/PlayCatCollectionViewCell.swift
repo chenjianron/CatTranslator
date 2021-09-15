@@ -24,6 +24,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
     lazy var audioBtn: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
+        button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(playRecord), for: .touchUpInside)
         return button
     }()
@@ -42,8 +43,14 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         return view
     }()
     lazy var audioLogo:UIImageView = {
-        let view = UIImageView()
-        view.image = #imageLiteral(resourceName: "Audio-4")
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 18, height: 13))
+        view.contentMode = .scaleToFill
+        view.animationImages = [UIImage(named: "AudioLogo-1"),UIImage(named: "AudioLogo-2"),UIImage(named: "AudioLogo-3"),UIImage(named: "AudioLogo-4")].compactMap{$0}
+        view.animationDuration = 1
+        view.animationRepeatCount = 0
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.clear
+        view.image = #imageLiteral(resourceName: "RecordLogo")
         return view
     }()
     
@@ -64,6 +71,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         textlabel.isHidden = true
         progressView.isHidden = false
         audioBtn.setBackgroundImage(#imageLiteral(resourceName: "Audio-Selected"), for: .normal)
+        audioLogo.startAnimating()
         time = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { (ktimer) in
             self.progressView.progress = Float((self.master?.player!.currentTime)!)/Float((self.master?.player!.duration)!)
         }
@@ -73,6 +81,9 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         textlabel.isHidden = false
         progressView.progress = 0
         progressView.isHidden = true
+//        audioLogo.image = #imageLiteral(resourceName: "Audio-4")
+        audioLogo.stopAnimating()
+//        audioLogo.image = #imageLiteral(resourceName: "RecordLogo")
         audioBtn.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
         time?.invalidate()
     }

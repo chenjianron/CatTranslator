@@ -17,6 +17,8 @@ enum headType {
 class MainVC: UIViewController {
     
     var currentType:headType?
+    var url:URL?
+    var player:AVAudioPlayer?
     
     let audio = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
     
@@ -77,6 +79,7 @@ class MainVC: UIViewController {
     }()
     lazy var catRecordBtn:UIButton = {
         let button = UIButton()
+        button.adjustsImageWhenHighlighted = false
         button.tag = 1
         button.setImage(#imageLiteral(resourceName: "CatRecordBtn"), for: .normal)
         button.addTarget(self, action: #selector(recordAuthority(button:)), for: .touchDown)
@@ -86,6 +89,7 @@ class MainVC: UIViewController {
     }()
     lazy var personRecordBtn:UIButton = {
         let button = UIButton()
+        button.adjustsImageWhenHighlighted = false
         button.tag = 2
         button.setImage(#imageLiteral(resourceName: "PersonRecordBtn"), for: .normal)
         button.addTarget(self, action: #selector(recordAuthority(button:)), for: .touchDown)
@@ -126,9 +130,21 @@ class MainVC: UIViewController {
     lazy var audioBtn: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(#imageLiteral(resourceName: "RecordBackground"), for: .normal)
+        button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(firstPlay), for: .touchUpInside)
         button.isHidden = true
         return button
+    }()
+    lazy var audioLogo:UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 18, height: 13))
+        view.contentMode = .scaleToFill
+        view.animationImages = [UIImage(named: "Index-AudioLogo-1"),UIImage(named: "Index-AudioLogo-2"),UIImage(named: "Index-AudioLogo-3"),UIImage(named: "Index-AudioLogo-4")].compactMap{$0}
+        view.animationDuration = 1
+        view.animationRepeatCount = 0
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.clear
+        view.image = #imageLiteral(resourceName: "Index-AudioLogo")
+        return view
     }()
     lazy var audioLable:UILabel = {
         let label = UILabel()
@@ -145,8 +161,10 @@ class MainVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        if record?.player?.isPlaying == true {
-            record?.player?.stop()
+        
+        if player != nil && player!.isPlaying == true {
+            player?.stop()
+            audioLogo.stopAnimating()
         }
     }
 }
@@ -194,13 +212,18 @@ extension MainVC {
             record!.upAction()
             return
         }
-        if (record!.recorder!.peakPower(forChannel: 0)) < -38 {
+        if (record!.recorder!.peakPower(forChannel: 0)) < -120 {
             personLanguagelabel.text = __("声音太小啦，没有听清…")
             record!.upAction()
             return
         }
         personLanguageBackground.isHidden = true
-        audioLable.text = Int(record!.recorder!.currentTime).description + "″"
+        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...18)], withExtension: ".wav") else {
+            return
+        }
+        self.url  = url
+        player = try! AVAudioPlayer(contentsOf: self.url!)
+        audioLable.text = Int(player!.duration).description + "″"
         audioBtn.isHidden = false
         audioBtn.isUserInteractionEnabled = true
         first = true
@@ -250,10 +273,11 @@ extension MainVC {
     
     func personRecordBtnStatus(status:Bool){
         if personLanguageBackground.isHidden == true {
-            if record?.player?.isPlaying == true {
-                record?.player?.stop()
+            if player?.isPlaying == true {
+                player?.stop()
             }
             first = true
+            audioLogo.stopAnimating()
             audioBtn.isHidden = true
             personLanguageBackground.isHidden = false
         }
@@ -314,21 +338,21 @@ extension MainVC {
     }
     // 首次播放人语转猫语的录音
     @objc func firstPlay(){
-        
-        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...18)], withExtension: ".wav") else {
-            return
-        }
         if first {
             audioBtn.isUserInteractionEnabled = false
             catRecordBtn.isUserInteractionEnabled = false
-            record?.playAction(url)
-            record?.player?.delegate = self
+            player?.play()
+            player?.delegate = self
+            audioLogo.startAnimating()
         } else {
-            if record?.player?.isPlaying == true {
-                record?.player?.stop()
+            if player?.isPlaying == true {
+                catRecordBtn.isUserInteractionEnabled = true
+                player?.stop()
+                audioLogo.stopAnimating()
             } else {
                 catRecordBtn.isUserInteractionEnabled = false
-                record?.player?.play()
+                player?.play()
+                audioLogo.startAnimating()
             }
         }
     }
@@ -341,8 +365,10 @@ extension MainVC: AVAudioPlayerDelegate {
             audioBtn.isUserInteractionEnabled = true
             catRecordBtn.isUserInteractionEnabled = true
             first = false
+            audioLogo.stopAnimating()
         } else {
             catRecordBtn.isUserInteractionEnabled = true
+            audioLogo.stopAnimating()
         }
     }
 }
@@ -370,6 +396,7 @@ extension MainVC {
         
         personLanguageBackground.addSubview(personLanguagelabel)
         audioBtn.addSubview(audioLable)
+        audioBtn.addSubview(audioLogo)
         setUpConstrains()
     }
     
@@ -454,6 +481,10 @@ extension MainVC {
             make.height.equalTo(G.share.h(17))
             make.left.equalTo(G.share.w(25.31))
             make.centerY.equalToSuperview()
+        }
+        audioLogo.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(G.share.w(16.6))
         }
     }
     
