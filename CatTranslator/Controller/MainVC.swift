@@ -152,6 +152,42 @@ class MainVC: UIViewController {
         label.textColor = K.Color.ThemeColor
         return label
     }()
+    lazy var catRecordRightLogo:UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 16, height: 22))
+        view.animationImages = [UIImage(named: "CatRecordRightLogo-1"),UIImage(named: "CatRecordRightLogo-2"),UIImage(named: "CatRecordRightLogo-3"),UIImage(named: "CatRecordRightLogo-4")].compactMap{$0}
+        view.animationDuration = 1
+        view.animationRepeatCount = 0
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    lazy var catRecordLeftLogo:UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 16, height: 22))
+        view.animationImages = [UIImage(named: "CatRecordLeftLogo-1"),UIImage(named: "CatRecordLeftLogo-2"),UIImage(named: "CatRecordLeftLogo-3"),UIImage(named: "CatRecordLeftLogo-4")].compactMap{$0}
+        view.animationDuration = 1
+        view.animationRepeatCount = 0
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    lazy var personRecordRightLogo:UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 16, height: 22))
+        view.animationImages = [UIImage(named: "PersonRecordRightLogo-1"),UIImage(named: "PersonRecordRightLogo-2"),UIImage(named: "PersonRecordRightLogo-3"),UIImage(named: "PersonRecordRightLogo-4")].compactMap{$0}
+        view.animationDuration = 1
+        view.animationRepeatCount = 0
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    lazy var personRecordLeftLogo:UIImageView = {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 16, height: 22))
+        view.animationImages = [UIImage(named: "PersonRecordLeftLogo-1"),UIImage(named: "PersonRecordLeftLogo-2"),UIImage(named: "PersonRecordLeftLogo-3"),UIImage(named: "PersonRecordLeftLogo-4")].compactMap{$0}
+        view.animationDuration = 1
+        view.animationRepeatCount = 0
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -261,9 +297,13 @@ extension MainVC {
     func catRecordBtnStatus(status:Bool){
         
         if !status {
-            catRecordBtn.setImage(#imageLiteral(resourceName: "CatRecordBtn-Gif"), for: .normal)
+//            catRecordBtn.setImage(#imageLiteral(resourceName: "CatRecordBtn-Gif"), for: .normal)
+            catRecordRightLogo.startAnimating()
+            catRecordLeftLogo.startAnimating()
         }else {
-            catRecordBtn.setImage(#imageLiteral(resourceName: "CatRecordBtn"), for: .normal)
+//            catRecordBtn.setImage(#imageLiteral(resourceName: "CatRecordBtn"), for: .normal)
+            catRecordRightLogo.stopAnimating()
+            catRecordLeftLogo.stopAnimating()
         }
         catLanguagelabel.text = __("正在聆听猫猫说话…")
         catImageView.headView.isUserInteractionEnabled = status
@@ -282,9 +322,12 @@ extension MainVC {
             personLanguageBackground.isHidden = false
         }
         if !status {
-            personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn-Gif"), for: .normal)
+            personRecordRightLogo.startAnimating()
+            personRecordLeftLogo.startAnimating()
         }else {
-            personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn"), for: .normal)
+            personRecordRightLogo.stopAnimating()
+            personRecordLeftLogo.stopAnimating()
+//            personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn"), for: .normal)
         }
         personLanguagelabel.text = __("正在为您翻译…")
         personImageView.headView.isUserInteractionEnabled = status
@@ -384,12 +427,16 @@ extension MainVC {
         catBackgroundBoard.addSubview(catImageView)
         catBackgroundBoard.addSubview(catLanguageBackground)
         catBackgroundBoard.addSubview(catRecordBtn)
+        catRecordBtn.addSubview(catRecordRightLogo)
+        catRecordBtn.addSubview(catRecordLeftLogo)
         catBackgroundBoard.addSubview(catBtnlabel)
         catLanguageBackground.addSubview(catLanguagelabel)
         
         personBackgroundBoard.addSubview(personLanguageBackground)
         personBackgroundBoard.addSubview(personImageView)
         personBackgroundBoard.addSubview(personRecordBtn)
+        personRecordBtn.addSubview(personRecordRightLogo)
+        personRecordBtn.addSubview(personRecordLeftLogo)
         personBackgroundBoard.addSubview(personBtnlabel)
         personBackgroundBoard.addSubview(personLanguagelabel)
         personBackgroundBoard.addSubview(audioBtn)
@@ -484,8 +531,23 @@ extension MainVC {
         }
         audioLogo.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(G.share.w(16.6))
+            make.left.equalToSuperview().offset(G.share.w(11))
+        }
+        catRecordRightLogo.snp.makeConstraints{ make in
+            make.right.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        catRecordLeftLogo.snp.makeConstraints{ make in
+            make.left.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        personRecordRightLogo.snp.makeConstraints{ make in
+            make.right.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        personRecordLeftLogo.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview()
         }
     }
-    
 }

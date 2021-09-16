@@ -10,13 +10,17 @@ import UIKit
 class SettingTableViewCell: UITableViewCell {
     
     lazy var titleLabel:UILabel = {
-        let label = UILabel.init()
-        label.font = UIFont(name: "Helvetica", size: 15)
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
         return label
     }()
     lazy var cellBack: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "cell_arrow.png")
+        imageView.image = #imageLiteral(resourceName: "cell_arrow")
+        return imageView
+    }()
+    lazy var cellIcon:UIImageView = {
+        let imageView = UIImageView()
         return imageView
     }()
     
@@ -36,7 +40,6 @@ class SettingTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 
@@ -44,21 +47,27 @@ class SettingTableViewCell: UITableViewCell {
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(cellBack)
+        contentView.addSubview(cellIcon)
+        
+        cellIcon.snp.makeConstraints{ make in
+            make.left.equalToSuperview().offset(20.4)
+            make.centerY.equalToSuperview()
+        }
         
         titleLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalTo(contentView).offset(16)
+            make.left.equalTo(cellIcon).offset(11.6)
         }
         
         cellBack.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.right.equalTo(-16)
+            make.right.equalTo(-19.52)
         }
 
     }
 
-    func addTitleString(title:String){
-        self.titleLabel.text = title
+    func addTitleString(data:[String:String]){
+        
     }
     
 }
