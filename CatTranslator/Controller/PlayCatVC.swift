@@ -128,7 +128,7 @@ extension PlayCatVC {
 extension PlayCatVC {
     
     @objc func setting(){
-        
+        self.navigationController?.pushViewController(SettingVC(),animated: false)
     }
 }
 

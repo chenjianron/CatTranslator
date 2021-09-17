@@ -56,7 +56,7 @@ class SettingTableViewCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalTo(cellIcon).offset(11.6)
+            make.left.equalTo(cellIcon.snp.right).offset(11.6)
         }
         
         cellBack.snp.makeConstraints { (make) in
@@ -66,8 +66,9 @@ class SettingTableViewCell: UITableViewCell {
 
     }
 
-    func addTitleString(data:[String:String]){
-        
+    func setData(icon:String,title:String){
+        cellIcon.image = UIImage(named: icon)
+        titleLabel.text = title
     }
     
 }

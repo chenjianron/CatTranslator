@@ -223,13 +223,15 @@ extension MainVC {
     
     //判断猫录音后的录音时长和音量
     func judgeCatRecord(){
-        
-        if record!.recorder!.currentTime <= 3 {
+        guard let recorder = record?.recorder else {
+            return
+        }
+        if recorder.currentTime <= 3 {
             catLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
             record!.upAction()
             return
         }
-        if (record!.recorder!.peakPower(forChannel: 0)) < -38 {
+        if (recorder.peakPower(forChannel: 0)) < -38 {
             catLanguagelabel.text = __("没有听清猫猫的声音哦..")
             record!.upAction()
             return
@@ -241,14 +243,16 @@ extension MainVC {
     
     //判断人录音后的录音时长和音量
     func judgePersonRecord(){
-        
+        guard let recorder = record?.recorder else {
+            return
+        }
         print(record!.recorder!.peakPower(forChannel: 0))
-        if record!.recorder!.currentTime <= 3 {
+        if recorder.currentTime <= 3 {
             personLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
             record!.upAction()
             return
         }
-        if (record!.recorder!.peakPower(forChannel: 0)) < -120 {
+        if (recorder.peakPower(forChannel: 0)) < -120 {
             personLanguagelabel.text = __("声音太小啦，没有听清…")
             record!.upAction()
             return
@@ -364,20 +368,37 @@ extension MainVC {
 extension MainVC {
 
     @objc func catRecordTouchDown(){
-        catRecordBtnStatus(status: false)
-        record!.downAction()
+        if(!UserDefaults.standard.bool(forKey: "FirstLaunchMainDown")){
+            UserDefaults.standard.setValue(true, forKey: "FirstLaunchMainDown")
+        } else {
+            catRecordBtnStatus(status: false)
+            record!.downAction()
+        }
     }
     @objc func catRecord(){
-        catRecordBtnStatus(status: true)
-        judgeCatRecord()
+        if(!UserDefaults.standard.bool(forKey: "FirstLaunchMainUp")){
+            UserDefaults.standard.setValue(true, forKey: "FirstLaunchMainUp")
+        } else {
+            catRecordBtnStatus(status: true)
+            judgeCatRecord()
+        }
     }
     @objc func personRecordTouchDown(){
-        personRecordBtnStatus(status: false)
-        record!.downAction()
+        if(UserDefaults.standard.bool(forKey: "FirstLaunchMainDown")){
+            personRecordBtnStatus(status: false)
+            record!.downAction()
+        } else {
+            UserDefaults.standard.setValue(true, forKey: "FirstLaunchMain")
+        }
+        
     }
     @objc func personRecord(){
-        personRecordBtnStatus(status: true)
-        judgePersonRecord()
+        if(UserDefaults.standard.bool(forKey: "FirstLaunchMainUp")){
+            personRecordBtnStatus(status: true)
+            judgePersonRecord()
+        } else {
+            UserDefaults.standard.setValue(true, forKey: "FirstLaunchUp")
+        }
     }
     // 首次播放人语转猫语的录音
     @objc func firstPlay(){

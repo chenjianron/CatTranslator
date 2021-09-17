@@ -54,8 +54,6 @@ struct K {
         //    //        static let RewardUnitID = "ca-app-pub-1526777558889812/5423421726"
         //        #endif
         
-        
-        
     }
     
     struct Share {
