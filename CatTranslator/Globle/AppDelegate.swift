@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !UserDefaults.standard.bool(forKey: "FirstLaunch") {
             viewController = PreviewPageVC()
             UserDefaults.standard.setValue(true, forKey: "FirstLaunch")
+            viewController = SSNavigationController(rootViewController: viewController)
         } else {
             let tabbarController = UITabBarController()
             tabbarController.tabBar.barTintColor = UIColor.white
@@ -37,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tabbarController.addChild(playCatVC)
             viewController = tabbarController
         }
-//        let navigationController = SSNavigationController(rootViewController: viewController)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         window?.rootViewController = viewController
@@ -48,3 +48,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARk: -友盟推送
+extension AppDelegate {
+    
+    func setupNotification(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+   
+        let entity = UMessageRegisterEntity()
+        entity.types = Int(UMessageAuthorizationOptions.alert.rawValue)
+               | Int(UMessageAuthorizationOptions.sound.rawValue)
+               | Int(UMessageAuthorizationOptions.badge.rawValue)
+           
+        UMessage.registerForRemoteNotifications(launchOptions: launchOptions, entity: entity, completionHandler: { (granted, error) in
+            LLog("推送: ", granted)
+            if let error = error {
+                LLog(error.localizedDescription)
+           }
+        })
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+       UMessage.registerDeviceToken(deviceToken)
+       
+       #if DEBUG
+       print(#function, "deviceToken", NotificationHandler.deviceToken(deviceToken) ?? "")
+       #endif
+   }
+   
+   func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        LLog(error)
+    }
+   
+   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        NotificationHandler.process(userInfo: userInfo)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        NotificationHandler.process(userInfo: userInfo)
+    }
+}

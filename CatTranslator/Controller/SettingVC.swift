@@ -13,7 +13,7 @@ import SafariServices
 class SettingVC: UIViewController {
     
     let CellID = "SettingsViewCell"
-    let titles = [[__("修改昵称")],[__("帮助"),__("意见反馈")],[__("分享给好友"), __("给个评价"),__("隐私政策"), __("用户协议")]]
+    let titles = [[__("修改昵称")],[__("意见反馈")],[__("分享给好友"), __("给个评价"),__("隐私政策"), __("用户协议")]]
     let icons = [["Setting- ChangeName"],["Setting-Help","Setting-Feedback"],["Setting-Share","Setting-Comment","Setting-Policy","Setting-UserAgreement"]]
 
     lazy var leftBarBtn:UIBarButtonItem = {
@@ -119,8 +119,6 @@ extension SettingVC: UITableViewDelegate,UITableViewDataSource{
         } else if indexPath.section == 1 {
             switch indexPath.row {
                 case 0:
-                    help()
-                case 1:
                     feedback()
                 default:
                     break

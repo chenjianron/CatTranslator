@@ -108,10 +108,12 @@ class PreviewPageVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        Statistics.beginLogPageView("预览页")
         UIApplication.shared.setStatusBarHidden(true, with: .none)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        Statistics.endLogPageView("预览页")
         UIApplication.shared.setStatusBarHidden(false, with: .none)
     }
 }

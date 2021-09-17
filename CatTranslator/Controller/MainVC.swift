@@ -194,7 +194,13 @@ class MainVC: UIViewController {
         setUpUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        Statistics.beginLogPageView("首页")
+        super.viewWillAppear(animated)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
+        Statistics.endLogPageView("首页")
         super.viewWillDisappear(animated)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
@@ -388,16 +394,15 @@ extension MainVC {
             personRecordBtnStatus(status: false)
             record!.downAction()
         } else {
-            UserDefaults.standard.setValue(true, forKey: "FirstLaunchMain")
+            UserDefaults.standard.setValue(true, forKey: "FirstLaunchMainDown")
         }
-        
     }
     @objc func personRecord(){
         if(UserDefaults.standard.bool(forKey: "FirstLaunchMainUp")){
             personRecordBtnStatus(status: true)
             judgePersonRecord()
         } else {
-            UserDefaults.standard.setValue(true, forKey: "FirstLaunchUp")
+            UserDefaults.standard.setValue(true, forKey: "FirstLaunchMainUp")
         }
     }
     // 首次播放人语转猫语的录音

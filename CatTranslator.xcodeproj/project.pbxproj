@@ -185,7 +185,7 @@
 				674F295526E0AD8D00A9D2B2 /* Base */,
 				674F295D26E0AFD700A9D2B2 /* View */,
 				674F295B26E0AF6B00A9D2B2 /* Controller */,
-				674F295826E0ADB600A9D2B2 /* Global */,
+				674F295826E0ADB600A9D2B2 /* Globle */,
 				674F295C26E0AF7C00A9D2B2 /* Resource */,
 			);
 			path = CatTranslator;
@@ -199,7 +199,7 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		674F295826E0ADB600A9D2B2 /* Global */ = {
+		674F295826E0ADB600A9D2B2 /* Globle */ = {
 			isa = PBXGroup;
 			children = (
 				675ECA4826F2F5E900DE9C4A /* Marketing.swift */,
@@ -209,7 +209,7 @@
 				674F296426E0C9B100A9D2B2 /* Helper.swift */,
 				679AE63D26E46A4D00E12E1D /* CatTranslator-Bridging-Header.h */,
 			);
-			path = Global;
+			path = Globle;
 			sourceTree = "<group>";
 		};
 		674F295B26E0AF6B00A9D2B2 /* Controller */ = {
@@ -684,6 +684,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = GC.CatTranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CatTranslator/Globle/CatTranslator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -704,6 +705,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = GC.CatTranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CatTranslator/Globle/CatTranslator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

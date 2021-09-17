@@ -20,22 +20,22 @@ class PlayCatVC: UIViewController {
     lazy var dataSource:[[[String:String]]] = {
         return [
             [
-                ["image":"Happy","text":"开心","audio":"开心"],
-                ["image":"SaJiao","text":"撒娇","audio":"撒娇"],
-                ["image":"MaiMeng","text":"卖萌","audio":"卖萌"],
-                ["image":"HaoQi","text":"好奇","audio":"好奇"],
-                ["image":"TaoYan","text":"讨厌","audio":"讨厌"],
-                ["image":"FengNu","text":"愤怒","audio":"愤怒"],
-                ["image":"WeiQu","text":"委屈","audio":"委屈"],
-                ["image":"DaHuLu","text":"打呼噜","audio":"呼噜声"],
+                ["image":"Happy","text":__("开心"),"audio":"开心"],
+                ["image":"SaJiao","text":__("撒娇"),"audio":"撒娇"],
+                ["image":"MaiMeng","text":__("卖萌"),"audio":"卖萌"],
+                ["image":"HaoQi","text":__("好奇"),"audio":"好奇"],
+                ["image":"TaoYan","text":__("讨厌"),"audio":"讨厌"],
+                ["image":"FengNu","text":__("愤怒"),"audio":"愤怒"],
+                ["image":"WeiQu","text":__("委屈"),"audio":"委屈"],
+                ["image":"DaHuLu","text":__("打呼噜"),"audio":"呼噜声"],
             ],
             [
-                ["image":"JiE","text":"饥饿","audio":"饥饿"],
-                ["image":"GouGouTiaoXin","text":"狗狗挑衅","audio":"狗狗挑衅"],
-                ["image":"ZhaMao","text":"炸毛","audio":"炸毛"],
-                ["image":"QiangShiWu","text":"抢食物","audio":"抢食物"],
-                ["image":"Wei","text":"喂！","audio":"喂"],
-                ["image":"QiuAnWei","text":"求安慰","audio":"求安慰"],
+                ["image":"JiE","text":__("饥饿"),"audio":"饥饿"],
+                ["image":"GouGouTiaoXin","text":__("狗狗挑衅"),"audio":"狗狗挑衅"],
+                ["image":"ZhaMao","text":__("炸毛"),"audio":"炸毛"],
+                ["image":"QiangShiWu","text":__("抢食物"),"audio":"抢食物"],
+                ["image":"Wei","text":__("喂！"),"audio":"喂"],
+                ["image":"QiuAnWei","text":__("求安慰"),"audio":"求安慰"],
             ]
         ]
     }()
@@ -77,11 +77,18 @@ class PlayCatVC: UIViewController {
         setUpUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        Statistics.beginLogPageView("逗猫页")
+        super.viewWillAppear(true)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
+        Statistics.endLogPageView("逗猫页")
         if(player?.isPlaying == true) {
             player?.stop()
             playCatCollectionView?.restoreStatus()
         }
+        
     }
 }
 

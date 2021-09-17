@@ -27,7 +27,6 @@ class Statistics {
     
     static func endLogPageView(_ name: String) {
         if currentPage != name { return }
-        
         MobClick.endLogPageView(name)
     }
     

@@ -36,7 +36,7 @@ class AlertVC: UIViewController {
         textField.keyboardType = .default
         textField.layer.cornerRadius = 19
         textField.backgroundColor = UIColor(hex: 0xF7F7F7)
-        textField.placeholder = "猫咪名"
+        textField.placeholder = __("猫咪名")
         textField.text = UserDefaults.standard.value(forKey: "CatName") as? String
         return textField
         
