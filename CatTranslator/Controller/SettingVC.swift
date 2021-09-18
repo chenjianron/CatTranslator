@@ -40,6 +40,11 @@ class SettingVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        navigationController?.popViewController(animated: false)
+        Statistics.beginLogPageView("设置页")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        Statistics.endLogPageView("设置页")
     }
 }
 
@@ -49,6 +54,7 @@ extension SettingVC {
     func changeName(){
         modalPresentationStyle = .fullScreen
         present(AlertVC(), animated: false, completion: nil)
+        Statistics.event(.SettingsTap, label: "修改昵称")
     }
     
     func help(){
@@ -56,6 +62,7 @@ extension SettingVC {
     }
     
     func feedback(){
+        Statistics.event(.SettingsTap, label: "意见反馈")
         if MFMailComposeViewController.canSendMail() {
             FeedbackMailMaker.shared.presentMailComposeViewController(from: self, recipient: K.Share.Email)
         } else {
@@ -67,6 +74,7 @@ extension SettingVC {
     }
     
     func share(indexPath:IndexPath){
+        Statistics.event(.SettingsTap, label: "分享给好友")
         let content = K.Share.normalContent.toURL()
         let activityVC = UIActivityViewController(activityItems: [content as Any], applicationActivities: nil)
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -85,6 +93,7 @@ extension SettingVC {
     }
     
     func comment(){
+        Statistics.event(.SettingsTap, label: "给个评价")
         let urlString = "itms-apps://itunes.apple.com/app/id\(K.IDs.AppID)?action=write-review"
         if let url = URL(string: urlString) {
             if #available(iOS 10.0, *) {
@@ -97,6 +106,7 @@ extension SettingVC {
     }
     
     func policy(){
+        Statistics.event(.SettingsTap, label: "隐私政策")
         guard let url = Util.webURL(urlStr: K.Website.PrivacyPolicy) else { return }
         let vc = SFSafariViewController(url: url)
        vc.modalPresentationStyle = .fullScreen
@@ -104,6 +114,7 @@ extension SettingVC {
     }
     
     func userAgreement(){
+        Statistics.event(.SettingsTap, label: "用户协议")
         guard let url = Util.webURL(urlStr: K.Website.UserAgreement) else { return }
         let vc = SFSafariViewController(url: url)
         self.present(vc, animated: true, completion: nil)
@@ -212,7 +223,7 @@ extension SettingVC {
 extension SettingVC {
     
     @objc func backToPrevious(){
-//        Statistics.event(.SettingsTap, label: "返回")
+        Statistics.event(.SettingsTap, label: "返回")
         self.navigationController!.popViewController(animated: false)
     }
 }

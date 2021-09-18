@@ -11,7 +11,7 @@ import SnapKit
 class HeadCollectionVC: UIViewController {
     
     var type:headType?
-    var previewPagemaster: PreviewPageVC?
+    weak var previewPagemaster: PreviewPageVC?
     var indexPageMaster: MainVC?
     
     private let CellID = "CollectionViewCell"
@@ -105,7 +105,25 @@ class HeadCollectionVC: UIViewController {
         super.viewDidLoad()
         setUpUI()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if type == .cat {
+            Statistics.beginLogPageView("修改猫咪图片页")
+        } else {
+            Statistics.beginLogPageView("修改人物图片页")
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if type == .cat {
+            Statistics.endLogPageView("修改猫咪图片页")
+        } else {
+            Statistics.endLogPageView("修改人物图片页")
+        }
+    }
 }
 
 //MARK: - private

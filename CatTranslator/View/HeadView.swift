@@ -11,7 +11,7 @@ import SnapKit
 class HeadView: UIView {
     
     var type:headType?
-    var previewPagemaster: PreviewPageVC?{
+    weak var previewPagemaster: PreviewPageVC?{
         didSet {
             switch type {
             case .cat:
@@ -93,11 +93,13 @@ class HeadView: UIView {
         if previewPagemaster != nil {
             switch type {
             case .cat:
+                Statistics.event(.HomePageTap, label: "修改猫咪图片页")
                 let headCollectionVC = HeadCollectionVC()
                 headCollectionVC.type = .cat
                 headCollectionVC.previewPagemaster = previewPagemaster
                 previewPagemaster!.present(headCollectionVC, animated: true, completion: nil)
             case .person:
+                Statistics.event(.HomePageTap, label: "修改人物图片页")
                 let headCollectionVC = HeadCollectionVC()
                 headCollectionVC.type = .person
                 headCollectionVC.previewPagemaster = previewPagemaster
@@ -108,11 +110,13 @@ class HeadView: UIView {
         } else {
             switch type {
             case .cat:
+                Statistics.event(.HomePageTap, label: "修改猫咪图片页")
                 let headCollectionVC = HeadCollectionVC()
                 headCollectionVC.type = .cat
                 headCollectionVC.indexPageMaster = indexPageMaster
                 indexPageMaster?.present(headCollectionVC, animated: true, completion: nil)
             case .person:
+                Statistics.event(.HomePageTap, label: "修改人物图片页")
                 let headCollectionVC = HeadCollectionVC()
                 headCollectionVC.type = .person
                 headCollectionVC.indexPageMaster = indexPageMaster

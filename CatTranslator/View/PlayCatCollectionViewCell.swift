@@ -9,13 +9,17 @@ import UIKit
 import Toolkit
 import AVFoundation
 
+protocol PlayCatCollectionViewCellDelegate: NSObjectProtocol {
+    func playAudio(cell: PlayCatCollectionViewCell, url: URL, type:Int)
+}
+
 class PlayCatCollectionViewCell: UICollectionViewCell {
     
     private var url:URL?
-    private var master: PlayCatVC?
+    private weak var master: PlayCatVC?
     var player:AVAudioPlayer? //播放器
     var time:Timer?
-    
+    var type:Int?
     
     lazy var catHeadView: UIImageView = {
         let imageView = UIImageView()
@@ -64,7 +68,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func playRecord(){
-        master?.playAudio(cell: self, url: url!)
+        master?.playAudio(cell: self, url: url!, type: type!)
     }
     
     func changeStatus(){
@@ -81,9 +85,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         textlabel.isHidden = false
         progressView.progress = 0
         progressView.isHidden = true
-//        audioLogo.image = #imageLiteral(resourceName: "Audio-4")
         audioLogo.stopAnimating()
-//        audioLogo.image = #imageLiteral(resourceName: "RecordLogo")
         audioBtn.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
         time?.invalidate()
     }
@@ -99,11 +101,12 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         setUpConstrains()
     }
     
-    func setUpDataSource(data: [String:String], master: PlayCatVC){
+    func setUpDataSource(data: [String:String], master: PlayCatVC,type:Int){
         catHeadView.image = UIImage(named: data["image"]!)
         textlabel.text = data["text"]
         url = Bundle.main.url(forResource: data["audio"], withExtension: ".wav")
         self.master = master
+        self.type = type
     }
     
     func setUpConstrains(){

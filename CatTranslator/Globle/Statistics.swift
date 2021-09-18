@@ -34,9 +34,8 @@ class Statistics {
         case
         HomePageTap,  //首页点击计数
         SettingsTap, //设置页点击计数
-        SearchResultTap,
-        SearchEngineTap,
-        SearchRecordTap
+        ReviewTap,
+        PlayCatTap
     }
     
     static func event(_ event: Event, label: String) {

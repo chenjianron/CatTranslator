@@ -91,11 +91,15 @@ class PlayCatVC: UIViewController {
         
     }
 }
-
 //MARK: - Public
-extension PlayCatVC {
+extension PlayCatVC:PlayCatCollectionViewCellDelegate {
     
-    @objc func playAudio(cell:PlayCatCollectionViewCell,url:URL){
+    func playAudio(cell: PlayCatCollectionViewCell, url: URL, type: Int) {
+        if(type == 0){
+            Statistics.event(.HomePageTap, label: "任意心情音频")
+        } else {
+            Statistics.event(.HomePageTap, label: "任意日常音频")
+        }
         if playCatCollectionView == cell {
             sameCell()
         } else {
@@ -135,6 +139,7 @@ extension PlayCatVC {
 extension PlayCatVC {
     
     @objc func setting(){
+        Statistics.event(.HomePageTap, label: "设置页")
         self.navigationController?.pushViewController(SettingVC(),animated: false)
     }
 }
@@ -153,13 +158,19 @@ extension PlayCatVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellID, for: indexPath)
         if let headerCell = cell as? PlayCatCollectionViewCell {
-            headerCell.setUpDataSource(data: dataSource[indexPath.section][indexPath.row],master: self)
+            headerCell.setUpDataSource(data: dataSource[indexPath.section][indexPath.row],master: self, type: indexPath.section)
         }
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if(indexPath.section == 0){
+            
+            Statistics.event(.HomePageTap, label: "任意心情音频")
+        } else {
+            
+            Statistics.event(.HomePageTap, label: "任意日常音频")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -181,7 +192,6 @@ extension PlayCatVC: UICollectionViewDelegate, UICollectionViewDataSource {
         reusableView.addSubview(label)
         return reusableView
     }
-    
 }
 
 

@@ -279,8 +279,10 @@ extension MainVC {
     //判断是哪一个录音按钮点击了
     func judgeBtn(button:UIButton){
         if button.tag == 1 {
+            Statistics.event(.HomePageTap, label: "猫录音键")
             self.catRecordTouchDown()
         }else {
+            Statistics.event(.HomePageTap, label: "人录音键")
             self.personRecordTouchDown()
         }
     }
@@ -414,6 +416,7 @@ extension MainVC {
             player?.delegate = self
             audioLogo.startAnimating()
         } else {
+            Statistics.event(.HomePageTap, label: "回放")
             if player?.isPlaying == true {
                 catRecordBtn.isUserInteractionEnabled = true
                 player?.stop()
