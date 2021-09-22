@@ -242,22 +242,25 @@ extension MainVC {
     
     //判断猫录音后的录音时长和音量
     func judgeCatRecord(){
-        guard let recorder = record?.recorder else {
-            return
-        }
-        if recorder.currentTime <= 3 {
-            catLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
+        let ctx = Ad.default.interstitialSignal(key: K.ParamName.RecordInterstitial)
+        ctx.didEndAction = { [self] _ in
+            guard let recorder = record?.recorder else {
+                return
+            }
+            if recorder.currentTime <= 3 {
+                catLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
+                record!.upAction()
+                return
+            }
+            if (recorder.peakPower(forChannel: 0)) < -45 {
+                catLanguagelabel.text = __("没有听清猫猫的声音哦..")
+                record!.upAction()
+                return
+            }
+            Marketing.shared.didCatTranslatorRT()
+            catLanguagelabel.text = catName as! String + ": " + Quotations[Int.random(in: 0...49)]
             record!.upAction()
-            return
         }
-        if (recorder.peakPower(forChannel: 0)) < -38 {
-            catLanguagelabel.text = __("没有听清猫猫的声音哦..")
-            record!.upAction()
-            return
-        }
-        catLanguagelabel.text = catName as! String + ": " + Quotations[Int.random(in: 0...49)]
-        record!.upAction()
-        
     }
     
     //判断人录音后的录音时长和音量
@@ -271,7 +274,7 @@ extension MainVC {
             record!.upAction()
             return
         }
-        if (recorder.peakPower(forChannel: 0)) < -38 {
+        if (recorder.peakPower(forChannel: 0)) < -45 {
             personLanguagelabel.text = __("声音太小啦，没有听清…")
             record!.upAction()
             return

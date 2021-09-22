@@ -22,8 +22,8 @@ struct K {
         //        static let GroupName = "group.com.softin.ScreenRecorder3"
         static let UMengKey = "613eecc11c91e0671ba12083"
         
-        static let SSID = "a4nrtddq1cw64lr8"
-        static let SSKey = "obcqxzk6dtsardn4"
+        static let SSID = "yzxojk2jp6ub8wuz"
+        static let SSKey = "k1xnp1kpyqn1zufj"
         static let SSRG = "oss-cn-hongkong"
         
         static let Secret = "CatTranslator/\(Util.appVersion())/meto.otf"

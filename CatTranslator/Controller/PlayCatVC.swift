@@ -190,22 +190,24 @@ extension PlayCatVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        var reusableView = UICollectionReusableView()
-        let label = UILabel(frame: CGRect(x: G.share.w(30.5), y: 15.5,width: 100, height: 20))
-        label.textAlignment = .left
-        label.textColor = UIColor.black
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        var reusableView:UICollectionReusableView?
+        
         if kind == UICollectionView.elementKindSectionHeader {
+            let label = UILabel(frame: CGRect(x: G.share.w(30.5), y: 15.5,width: 100, height: 20))
+            label.textAlignment = .left
+            label.textColor = UIColor.black
+            label.font = UIFont.boldSystemFont(ofSize: 14)
             reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,withReuseIdentifier: "Header",for: indexPath)
-            reusableView.backgroundColor = UIColor.white
+            reusableView!.backgroundColor = UIColor.white
             if indexPath.section == 0 {
-                label.text = __("心情");
+                label.text = __("心情")
+                reusableView?.addSubview(label)
             } else {
                 label.text = __("日常")
+                reusableView?.addSubview(label)
             }
         }
-        reusableView.addSubview(label)
-        return reusableView
+        return reusableView!
     }
 }
 

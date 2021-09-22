@@ -88,6 +88,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         audioLogo.stopAnimating()
         audioBtn.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
         time?.invalidate()
+        
     }
     
     func setUpUI(){
@@ -142,10 +143,11 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
 
 //MARK: - AVAudioPlayerDelegate
 extension PlayCatCollectionViewCell: AVAudioPlayerDelegate {
-    
+
     func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool){
         restoreStatus()
+        Ad.default.interstitialSignal(key: K.ParamName.RecordInterstitial)
     }
-    
+
 }
 

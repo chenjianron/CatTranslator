@@ -40,6 +40,7 @@ class SettingVC: UIViewController {
         
         return object
     }()
+    lazy var appsView: UIView = SettingsFeaturedApps.createAppsView(width: self.view.width)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -217,12 +218,19 @@ extension SettingVC {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = leftBarBtn
         view.addSubview(tableView)
+        view.addSubview(appsView)
         setupConstraints()
     }
     
     func setupConstraints(){
+        appsView.snp.makeConstraints{ make in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(appsView.height)
+        }
         tableView.snp.makeConstraints{ make in
-            make.top.equalTo(safeAreaTop).offset(0)
+            make.top.equalTo(safeAreaTop).offset(appsView.height)
             make.width.equalToSuperview()
             make.height.equalToSuperview()
         }
