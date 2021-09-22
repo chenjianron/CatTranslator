@@ -15,18 +15,19 @@ let Quotations = [
 ]
 
 struct K {
+    
     struct IDs {
         
         static let AppID = "1571453641"
         //        static let GroupName = "group.com.softin.ScreenRecorder3"
-        static let UMengKey = "60c069791568bb08a5be664b"
+        static let UMengKey = "613eecc11c91e0671ba12083"
         
         static let SSID = "a4nrtddq1cw64lr8"
         static let SSKey = "obcqxzk6dtsardn4"
         static let SSRG = "oss-cn-hongkong"
         
-        static let Secret = "ImageSearch/\(Util.appVersion())/meto.otf"
-        static let adMobAppId = "ca-app-pub-1526777558889812~7180568285"
+        static let Secret = "CatTranslator/\(Util.appVersion())/meto.otf"
+        static let adMobAppId = "ca-app-pub-1526777558889812~7586155130"
         
         //        #if DEBUG
         //        static let BannerUnitID = "ca-app-pub-1526777558889812/1928241607"
@@ -41,18 +42,15 @@ struct K {
         //        static let RewardUnitID = "ca-app-pub-1526777558889812/5423421726"
         //        #endif
         
-        //        #if DEBUG
+        #if DEBUG
         static let BannerUnitID = "ca-app-pub-3940256099942544/2934735716"
         static let InterstitialUnitID = "ca-app-pub-3940256099942544/4411468910"
         static let InterstitialTransferUnitID = "ca-app-pub-3940256099942544/4411468910"
-        static let RewardUnitID = "ca-app-pub-3940256099942544/1712485313"
-        //        #else
-        //           static let BannerUnitID = "ca-app-pub-1526777558889812/7898692549"
-        //           static let InterstitialUnitID = "ca-app-pub-1526777558889812/4626549998"
-        //           static let InterstitialSaveUnitID = "ca-app-pub-1526777558889812/2930324944"
-        //           static let InterstitialTransferUnitID = "ca-app-pub-1526777558889812/5423421726"
-        //    //        static let RewardUnitID = "ca-app-pub-1526777558889812/5423421726"
-        //        #endif
+        #else
+           static let BannerUnitID = "ca-app-pub-1526777558889812/7913458197"
+           static let InterstitialUnitID = "ca-app-pub-1526777558889812/5813908460"
+           static let InterstitialSaveUnitID = "ca-app-pub-1526777558889812/4768420100"
+        #endif
         
     }
     
@@ -78,32 +76,26 @@ struct K {
         
         static let HomePageBanner = "S.Ad.首页" // 首页广告栏控制开关
         static let SettingPageBanner = "S.Ad.设置页" // 设置页广告栏控制开关
-        static let SearchRecordBanner = "S.Ad.搜索记录页" // 搜索记录页广告栏控制开关
-        static let WebBanner = "S.Ad.浏览器页" //浏览器网页面广告栏控制开关
+        static let PlayCatBanner = "S.Ad.逗猫页"
         
         static let LaunchInterstitial = "p1-1" // 每N次启动弹出插屏广告
         static let SwitchInterstitial = "p1-2" // 每N次进入前台弹出插屏广告
-        static let PickerInterstitial = "p1-3"
-        static let CameraInterstitial = "p1-4"
-        static let URLInterstitial = "p1-5"
-        static let KeywordInterstitial = "p1-7"
-        static let SaveImageInterstitial = "p1-8"
-        static let DeleteImageInterstitial = "p1-9"
-        static let SearchImageInterstitial = "p1-10"
+        static let RecordInterstitial = "p1-3"
+        static let PlayAudioInterstitial = "p1-4"
         
         static let ShareRT = "p2-1" //分享后返回设置页弹窗
-        static let ImagePickerRT = "p2-2" //保存后弹窗
-        static let LauchAPPRT = "p2-3" //启动/返回应用弹窗
+        static let CatTranslatorRT = "p2-2" //猫语翻译后弹窗
+        static let EnterRT = "p2-3" //启动/返回应用弹窗
         
         static let pushAlertDays = "p3-1" // 用户未允许通知提醒，每隔N天后弹出通知提醒
         static let RTTime = "p3-0"  //评论间隔小时
-        //        static let saveRT = "p3-2" //保存后弹窗
-        static let EnterRT = "p3-3" //启动/返回应用弹窗
         
     }
+    
+    struct NotificationName {
+        static let RefreshBookmark = NSNotification.Name("RefreshBookmark")
+        static let UserAgentDidChange = NSNotification.Name("UserAgentDidChange")
+    }
+
 }
 
-struct NotificationName {
-    static let RefreshBookmark = NSNotification.Name("RefreshBookmark")
-    static let UserAgentDidChange = NSNotification.Name("UserAgentDidChange")
-}

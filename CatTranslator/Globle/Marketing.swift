@@ -13,6 +13,7 @@ import AdLib
 import MarketingHelper
 
 class BannerWrap {
+    
     let presetKey: String
     let homeKey: String
     var view: UIView?
@@ -30,8 +31,7 @@ class Marketing {
     enum Banner {
         case homeBanner
         case settingBanner
-        case searchRecordBanner
-        case webBanner
+        case PlayCatBanner
     }
     
     private var bannerViews: [Banner : BannerWrap] = [:]
@@ -52,25 +52,20 @@ class Marketing {
                                         
                                         K.ParamName.HomePageBanner : 1,
                                         K.ParamName.SettingPageBanner : 1,
-                                        K.ParamName.SearchRecordBanner : 1,
-                                        K.ParamName.WebBanner:1,
+                                        K.ParamName.PlayCatBanner : 1,
                                         
                                         K.ParamName.LaunchInterstitial : 5,
                                         K.ParamName.SwitchInterstitial : 5,
-                                        K.ParamName.PickerInterstitial : 10,
-                                        K.ParamName.CameraInterstitial: 10,
-                                        K.ParamName.URLInterstitial: 10,
-                                        K.ParamName.KeywordInterstitial: 10,
-                                        K.ParamName.SaveImageInterstitial:10,
-                                        K.ParamName.DeleteImageInterstitial:10,
-                                        K.ParamName.SearchImageInterstitial:10,
+                                        K.ParamName.RecordInterstitial: 10,
+                                        K.ParamName.PlayAudioInterstitial:10,
                                         
                                         K.ParamName.ShareRT: 1,
-                                        K.ParamName.ImagePickerRT: 2,
-                                        K.ParamName.LauchAPPRT: 5,
+                                        K.ParamName.CatTranslatorRT: 2,
+                                        K.ParamName.EnterRT: 5,
        ])
         
         MarketingHelper.presentUpdateAlert()
+        
         // Ad
         Ad.default.setup(bannerUnitID: K.IDs.BannerUnitID, interstitialUnitID: K.IDs.InterstitialUnitID, openAdUnitID: nil, rewardAdUnitID: nil, isEnabled: true)
         
@@ -90,21 +85,18 @@ class Marketing {
                                                name: UIApplication.willEnterForegroundNotification,
                                                object: nil)
         
-        didLaunchOrEnterForeground()
-        
         bannerViews[.homeBanner] = .init(presetKey: K.ParamName.HomePageBanner, homeKey: K.ParamName.HomePageBanner)
         bannerViews[.settingBanner] = .init(presetKey: K.ParamName.SettingPageBanner, homeKey: K.ParamName.SettingPageBanner)
-        bannerViews[.searchRecordBanner] = .init(presetKey: K.ParamName.SearchRecordBanner, homeKey: K.ParamName.SearchRecordBanner)
-        bannerViews[.webBanner] = .init(presetKey: K.ParamName.WebBanner, homeKey: K.ParamName.WebBanner)
+        bannerViews[.PlayCatBanner] = .init(presetKey: K.ParamName.PlayCatBanner, homeKey: K.ParamName.PlayCatBanner)
     }
-    
-    
     
 }
 
 // MARK: - Public
 extension Marketing {
+    
     func bannerView(_ type: Banner, rootViewController: UIViewController) -> UIView? {
+        
         guard let wrap: BannerWrap = bannerViews[type] else { return nil }
         if wrap.view == nil && Preset.named(wrap.presetKey).boolValue {
             wrap.view = Ad.default.createBannerView(rootViewController: rootViewController, houseAdID: wrap.homeKey)
@@ -132,6 +124,35 @@ extension Marketing {
     }
     
     // MARK: - 评论
+    func didShareRT() {
+        
+        let rtCounter = Counter.find(key: K.ParamName.ShareRT)
+        rtCounter.increase()
+        if !RT.default.hasUserRTed && rtCounter.hitsMax {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            } else {
+                // Fallback on earlier versions
+            }
+            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
+        }
+    }
+    
+    func didCatTranslatorRT() {
+        
+        let rtCounter = Counter.find(key: K.ParamName.CatTranslatorRT)
+        rtCounter.increase()
+        
+        if !RT.default.hasUserRTed && rtCounter.hitsMax {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            } else {
+                // Fallback on earlier versions
+            }
+            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
+        }
+    }
+    
     @objc func didLaunchOrEnterForeground() {
 
         let rtCounter = Counter.find(key: K.ParamName.EnterRT)
@@ -146,53 +167,6 @@ extension Marketing {
             rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
         }
     }
-
-    
-    func didShareRT() {
-        let rtCounter = Counter.find(key: K.ParamName.ShareRT)
-        rtCounter.increase()
-        if !RT.default.hasUserRTed && rtCounter.hitsMax {
-            if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
-            } else {
-                // Fallback on earlier versions
-            }
-            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
-        }
-    }
-    
-    func didImagePickerRT() {
-        let rtCounter = Counter.find(key: K.ParamName.ImagePickerRT)
-        rtCounter.increase()
-        
-        if !RT.default.hasUserRTed && rtCounter.hitsMax {
-            if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
-            } else {
-                // Fallback on earlier versions
-            }
-            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
-        }
-    }
-    
-    
-    @objc func didLauchAPPRT() {
-        let rtCounter = Counter.find(key: K.ParamName.LauchAPPRT)
-        rtCounter.increase()
-        
-        if !RT.default.hasUserRTed && rtCounter.hitsMax {
-            if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
-            } else {
-                // Fallback on earlier versions
-            }
-            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
-        }
-    }
-    
-
-    
-    
 }
 
 // MARK: - helper

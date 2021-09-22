@@ -15,7 +15,17 @@ class SettingVC: UIViewController {
     let CellID = "SettingsViewCell"
     let titles = [[__("修改昵称")],[__("意见反馈")],[__("分享给好友"), __("给个评价"),__("隐私政策"), __("用户协议")]]
     let icons = [["Setting- ChangeName"],["Setting-Help","Setting-Feedback"],["Setting-Share","Setting-Comment","Setting-Policy","Setting-UserAgreement"]]
-
+    
+    var bannerView: UIView? {
+        return Marketing.shared.bannerView(.settingBanner, rootViewController:self)
+    }
+    var bannerInset: CGFloat {
+        if bannerView != nil {
+            return Ad.default.adaptiveBannerHeight
+        } else {
+            return 0
+        }
+    }
     lazy var leftBarBtn:UIBarButtonItem = {
         let leftBarBtn = UIBarButtonItem(image: UIImage(named: "Setting-Back")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backToPrevious))
         return leftBarBtn
@@ -35,6 +45,7 @@ class SettingVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
+        setupAdBannerView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -206,7 +217,6 @@ extension SettingVC {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = leftBarBtn
         view.addSubview(tableView)
-//      view.addSubview(bannerView)
         setupConstraints()
     }
     
@@ -217,6 +227,17 @@ extension SettingVC {
             make.height.equalToSuperview()
         }
     }
+    
+    func setupAdBannerView() {
+        if let bannerView = self.bannerView {
+            view.addSubview(bannerView)
+            bannerView.snp.makeConstraints { make in
+                make.bottom.equalTo(safeAreaBottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(Ad.default.adaptiveBannerHeight)
+            }
+        }
+    }
 }
 
 // MARK: - public
@@ -224,7 +245,29 @@ extension SettingVC {
     
     @objc func backToPrevious(){
         Statistics.event(.SettingsTap, label: "返回")
-        self.navigationController!.popViewController(animated: false)
+        
+        let tabbarController = UITabBarController()
+        tabbarController.tabBar.barTintColor = UIColor.white
+        
+        let mainVC = SSNavigationController(rootViewController: MainVC())
+        mainVC.tabBarItem.title = __("翻译")
+        mainVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: K.Color.ThemeColor], for: .selected)
+        mainVC.tabBarItem.image = #imageLiteral(resourceName: "TarBarImage1-Selected")
+        mainVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "TarBarImage1")
+        tabbarController.addChild(mainVC)
+        
+        let playCatVC = SSNavigationController(rootViewController: PlayCatVC())
+        playCatVC.tabBarItem.title = __("逗猫")
+        playCatVC.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: K.Color.ThemeColor], for: .selected)
+        playCatVC.tabBarItem.image = #imageLiteral(resourceName: "TarBarImage2")
+        playCatVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "TarBarImage2-Selected")
+        tabbarController.addChild(playCatVC)
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = tabbarController
+        appDelegate.window?.backgroundColor = .white
+        let tabBar = appDelegate.window!.rootViewController as! UITabBarController
+        tabBar.selectedIndex = 1
     }
 }
 

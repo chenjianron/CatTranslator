@@ -20,6 +20,17 @@ class MainVC: UIViewController {
     var url:URL?
     var player:AVAudioPlayer?
     
+    var bannerView: UIView? {
+        return Marketing.shared.bannerView(.homeBanner, rootViewController:self)
+    }
+    var bannerInset: CGFloat {
+        if bannerView != nil {
+            return Ad.default.adaptiveBannerHeight
+        } else {
+            return 0
+        }
+    }
+    
     let audio = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
     
     var catHeadName = UserDefaults.standard.value(forKey: "CatHeadName"){
@@ -192,6 +203,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        setupAdBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -214,6 +226,7 @@ class MainVC: UIViewController {
 
 // MARK: - Public
 extension MainVC {
+    
     func setCatName(_ name:String){
         catHeadName = name
         dismiss(animated: true, completion: nil)
@@ -258,7 +271,7 @@ extension MainVC {
             record!.upAction()
             return
         }
-        if (recorder.peakPower(forChannel: 0)) < -120 {
+        if (recorder.peakPower(forChannel: 0)) < -38 {
             personLanguagelabel.text = __("声音太小啦，没有听清…")
             record!.upAction()
             return
@@ -309,11 +322,9 @@ extension MainVC {
     func catRecordBtnStatus(status:Bool){
         
         if !status {
-//            catRecordBtn.setImage(#imageLiteral(resourceName: "CatRecordBtn-Gif"), for: .normal)
             catRecordRightLogo.startAnimating()
             catRecordLeftLogo.startAnimating()
         }else {
-//            catRecordBtn.setImage(#imageLiteral(resourceName: "CatRecordBtn"), for: .normal)
             catRecordRightLogo.stopAnimating()
             catRecordLeftLogo.stopAnimating()
         }
@@ -432,6 +443,7 @@ extension MainVC {
 
 //MARK: - AVAudioPlayerDelegate
 extension MainVC: AVAudioPlayerDelegate {
+    
     func audioPlayerDidFinishPlaying(_: AVAudioPlayer, successfully: Bool){
         if first {
             audioBtn.isUserInteractionEnabled = true
@@ -443,10 +455,22 @@ extension MainVC: AVAudioPlayerDelegate {
             audioLogo.stopAnimating()
         }
     }
+    
 }
 
 //MARK: - UI
 extension MainVC {
+    
+    func setupAdBannerView() {
+        if let bannerView = self.bannerView {
+            view.addSubview(bannerView)
+            bannerView.snp.makeConstraints { make in
+                make.top.equalTo(safeAreaTop)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(Ad.default.adaptiveBannerHeight)
+            }
+        }
+    }
     
     func setUpUI(){
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -477,10 +501,11 @@ extension MainVC {
     }
     
     func setUpConstrains(){
+        
         catBackgroundBoard.snp.makeConstraints{ make in
             make.width.equalTo(G.share.w(332))
             make.height.equalTo(G.share.h(231))
-            make.top.equalTo(safeAreaTop).offset(G.share.h(30))
+            make.top.equalTo(safeAreaTop).offset(G.share.h(30)+bannerInset)
             make.centerX.equalToSuperview()
         }
         personBackgroundBoard.snp.makeConstraints{ make in
@@ -579,4 +604,5 @@ extension MainVC {
             make.left.equalToSuperview()
         }
     }
+    
 }

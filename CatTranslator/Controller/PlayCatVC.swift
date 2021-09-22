@@ -17,6 +17,17 @@ class PlayCatVC: UIViewController {
     var url:URL?
     var player:AVAudioPlayer?
     
+    var bannerView: UIView? {
+        return Marketing.shared.bannerView(.PlayCatBanner, rootViewController:self)
+    }
+    var bannerInset: CGFloat {
+        if bannerView != nil {
+            return Ad.default.adaptiveBannerHeight
+        } else {
+            return 0
+        }
+    }
+    
     lazy var dataSource:[[[String:String]]] = {
         return [
             [
@@ -75,6 +86,7 @@ class PlayCatVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        setupAdBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +100,6 @@ class PlayCatVC: UIViewController {
             player?.stop()
             playCatCollectionView?.restoreStatus()
         }
-        
     }
 }
 //MARK: - Public
@@ -140,7 +151,11 @@ extension PlayCatVC {
     
     @objc func setting(){
         Statistics.event(.HomePageTap, label: "设置页")
-        self.navigationController?.pushViewController(SettingVC(),animated: false)
+        let viewController = SSNavigationController(rootViewController: SettingVC())
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = viewController
+        appDelegate.window?.backgroundColor = .white
+//        self.navigationController?.pushViewController(SettingVC(),animated: false)
     }
 }
 
@@ -198,6 +213,17 @@ extension PlayCatVC: UICollectionViewDelegate, UICollectionViewDataSource {
 //MARK: - UI
 extension PlayCatVC {
     
+    func setupAdBannerView() {
+        if let bannerView = self.bannerView {
+            view.addSubview(bannerView)
+            bannerView.snp.makeConstraints { make in
+                make.top.equalTo(safeAreaTop)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(Ad.default.adaptiveBannerHeight)
+            }
+        }
+    }
+    
     func setUpUI(){
         navigationItem.title = __("逗猫")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "SettingIcon"), style: .plain, target: self, action: #selector(setting))
@@ -207,9 +233,9 @@ extension PlayCatVC {
     
     func setUpConstrains(){
         collectionView.snp.makeConstraints{ make in
-            make.height.equalToSuperview().multipliedBy(0.91)
+            make.height.equalToSuperview().multipliedBy(0.91).offset(-bannerInset)
             make.left.right.equalToSuperview()
-            make.top.equalTo(safeAreaTop)
+            make.top.equalTo(safeAreaTop).offset(bannerInset)
         }
     }
 }

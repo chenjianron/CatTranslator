@@ -43,6 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         
+        Marketing.shared.setup()
+        setupNotification(launchOptions: launchOptions)
+        AppTracking.shared.requestIDFA()
+        
         return true
     }
 
