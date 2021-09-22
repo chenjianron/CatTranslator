@@ -58,6 +58,11 @@ class SettingVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         Statistics.endLogPageView("设置页")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Pro.shared.addLongPressGesture(to: tableView.cellForRow(at: IndexPath(row: 0, section: 0)))
+    }
 }
 
 // MARK: - private

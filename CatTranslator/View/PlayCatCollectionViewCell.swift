@@ -76,7 +76,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         progressView.isHidden = false
         audioBtn.setBackgroundImage(#imageLiteral(resourceName: "Audio-Selected"), for: .normal)
         audioLogo.startAnimating()
-        time = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { (ktimer) in
+        time = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (ktimer) in
             self.progressView.progress = Float((self.master?.player!.currentTime)!)/Float((self.master?.player!.duration)!)
         }
     }
