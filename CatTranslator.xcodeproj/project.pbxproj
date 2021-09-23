@@ -86,6 +86,7 @@
 		675ECA5426F58C7100DE9C4A /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
 		6781123126E4B2D900BE1BBD /* GetWidthHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetWidthHeight.swift; sourceTree = "<group>"; };
 		6781123526E4B47100BE1BBD /* HeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
+		678B987E26FB20EB00096723 /* CatTranslator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CatTranslator.entitlements; sourceTree = "<group>"; };
 		6794C31D26E6E68E00FF28C8 /* HeadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCollectionViewCell.swift; sourceTree = "<group>"; };
 		679AE63226E464D300E12E1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizations.strings; sourceTree = "<group>"; };
 		679AE63526E464D900E12E1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -182,6 +183,7 @@
 		674F294026E0A90300A9D2B2 /* CatTranslator */ = {
 			isa = PBXGroup;
 			children = (
+				678B987E26FB20EB00096723 /* CatTranslator.entitlements */,
 				6781123026E4B2C600BE1BBD /* Feature */,
 				674F295E26E0B43D00A9D2B2 /* Extendsion */,
 				674F295526E0AD8D00A9D2B2 /* Base */,
@@ -679,6 +681,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CatTranslator/CatTranslator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BYLX9G7HJ9;
 				INFOPLIST_FILE = CatTranslator/Info.plist;
@@ -700,6 +703,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CatTranslator/CatTranslator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BYLX9G7HJ9;
 				INFOPLIST_FILE = CatTranslator/Info.plist;

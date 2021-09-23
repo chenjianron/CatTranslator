@@ -19,6 +19,8 @@ class MainVC: UIViewController {
     var currentType:headType?
     var url:URL?
     var player:AVAudioPlayer?
+    var catTimer:Timer?
+    var personTimer:Timer?
     
     var bannerView: UIView? {
         return Marketing.shared.bannerView(.homeBanner, rootViewController:self)
@@ -47,6 +49,8 @@ class MainVC: UIViewController {
     }
     var catName = UserDefaults.standard.value(forKey: "CatName")
     var first:Bool = true
+//    var index:Int = 0
+//    var text:String = ""
     
     lazy var record:RTMAudioRecord? = {
         let record = RTMAudioRecord()
@@ -235,10 +239,53 @@ extension MainVC {
         personHeadName = name
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 // MARK: - Private
 extension MainVC {
+    
+    func catTextAnimating(array:Array<Character>){
+        var index:Int = 0
+        var text:String = ""
+        let string = array
+        if(catTimer != nil){
+            catTimer?.invalidate()
+            catTimer = nil
+        }
+        catTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [self] make in
+            text += String(string[index])
+            catLanguagelabel.text = text
+            index += 1
+            if index == string.count {
+                index = 0
+                text = ""
+                catTimer?.invalidate()
+                catTimer = nil
+            }
+        })
+    }
+    
+    func personTextAnimating(array:Array<Character>){
+        var index:Int = 0
+        var text:String = ""
+        let string = array
+        if(personTimer != nil){
+            personTimer?.invalidate()
+            personTimer = nil
+        }
+        personTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [self] make in
+            text += String(string[index])
+            personLanguagelabel.text = text
+            index += 1
+            if index == string.count {
+                index = 0
+                text = ""
+                personTimer?.invalidate()
+                personTimer = nil
+            }
+        })
+    }
     
     //判断猫录音后的录音时长和音量
     func judgeCatRecord(){
@@ -248,17 +295,17 @@ extension MainVC {
                 return
             }
             if recorder.currentTime <= 3 {
-                catLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
+                catTextAnimating(array: Array( __("录制时间太短，请录制3s以上哦..")))
                 record!.upAction()
                 return
             }
             if (recorder.peakPower(forChannel: 0)) < -45 {
-                catLanguagelabel.text = __("没有听清猫猫的声音哦..")
+                catTextAnimating(array: Array( __("没有听清猫猫的声音哦..")))
                 record!.upAction()
                 return
             }
             Marketing.shared.didCatTranslatorRT()
-            catLanguagelabel.text = catName as! String + ": " + Quotations[Int.random(in: 0...49)]
+            catTextAnimating(array: Array( catName as! String + ": " + Quotations[Int.random(in: 0...49)]))
             record!.upAction()
         }
     }
@@ -270,12 +317,12 @@ extension MainVC {
         }
         print(record!.recorder!.peakPower(forChannel: 0))
         if recorder.currentTime <= 3 {
-            personLanguagelabel.text = __("录制时间太短，请录制3s以上哦..")
+            personTextAnimating(array: Array(__("录制时间太短，请录制3s以上哦..")))
             record!.upAction()
             return
         }
         if (recorder.peakPower(forChannel: 0)) < -45 {
-            personLanguagelabel.text = __("声音太小啦，没有听清…")
+            personTextAnimating(array: Array(__("声音太小啦，没有听清…")))
             record!.upAction()
             return
         }
@@ -331,7 +378,7 @@ extension MainVC {
             catRecordRightLogo.stopAnimating()
             catRecordLeftLogo.stopAnimating()
         }
-        catLanguagelabel.text = __("正在聆听猫猫说话…")
+        catTextAnimating(array: Array(__("正在聆听猫猫说话…")))
         catImageView.headView.isUserInteractionEnabled = status
         personRecordBtn.isUserInteractionEnabled = status
         personImageView.isUserInteractionEnabled = status
@@ -355,7 +402,7 @@ extension MainVC {
             personRecordLeftLogo.stopAnimating()
 //            personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn"), for: .normal)
         }
-        personLanguagelabel.text = __("正在为您翻译…")
+        personTextAnimating(array: Array(__("正在为您翻译…")))
         personImageView.headView.isUserInteractionEnabled = status
         catImageView.headView.isUserInteractionEnabled = status
         catRecordBtn.isUserInteractionEnabled = status
@@ -388,6 +435,22 @@ extension MainVC {
 
 // MARK: - Interaction
 extension MainVC {
+    
+//    @objc func shuchu(text:String, label:UILabel) {
+//        self.text += Array(arrayLiteral: text)[index]
+//        label.text = self.text
+//        if index == text.count {
+//            index = 0
+//            timer?.invalidate()
+//        }
+////        muStr += arrr[cc] as? String ?? ""
+////        text = muStr
+////        cc += 1
+////        if cc == arrr.count {
+////            cc = 0
+////            timer.invalidate()
+////        }
+//    }
 
     @objc func catRecordTouchDown(){
         if(!UserDefaults.standard.bool(forKey: "FirstLaunchMainDown")){
