@@ -106,7 +106,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
     func setUpDataSource(data: [String:String], master: PlayCatVC,type:Int){
         catHeadView.image = UIImage(named: data["image"]!)
         textlabel.text = data["text"]
-        url = Bundle.main.url(forResource: data["audio"], withExtension: ".wav")
+        url = Bundle.main.url(forResource: data["audio"], withExtension: ".mp3")
         self.master = master
         self.type = type
     }

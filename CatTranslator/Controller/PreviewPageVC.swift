@@ -43,6 +43,7 @@ class PreviewPageVC: UIViewController {
         let button = UIButton()
         button.setBackgroundImage(#imageLiteral(resourceName: "CatButton-Background"), for: .normal)
         button.setTitle(__("点击切换"), for: .normal)
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
         button.setTitleColor(K.Color.AuxiliaryColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.tag = 1
@@ -52,6 +53,7 @@ class PreviewPageVC: UIViewController {
     lazy var personHeadExchangeBtn:UIButton = {
         let button = UIButton()
         button.setBackgroundImage(#imageLiteral(resourceName: "PersonButton-Background"), for: .normal)
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
         button.setTitle(__("点击切换"), for: .normal)
         button.setTitleColor(K.Color.ThemeColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -278,7 +280,7 @@ extension PreviewPageVC {
             make.right.equalTo(personImageView.snp.right).offset(-G.share.w(18.31))
         }
         titleLabel.snp.makeConstraints{ make in
-            make.width.equalTo(G.share.w(126))
+            make.width.equalTo(G.share.w(250))
             make.height.equalTo(G.share.h(20))
             make.top.equalTo(catHeadExchangeBtn.snp.bottom).offset(G.share.h(28.95))
             make.left.equalTo(catHeadExchangeBtn.snp.left).offset(G.share.w(6.17))

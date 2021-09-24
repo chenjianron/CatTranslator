@@ -33,21 +33,21 @@ class MainVC: UIViewController {
         }
     }
     
-    let audio = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
+    let audio = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]
     
-    var catHeadName = UserDefaults.standard.value(forKey: "CatHeadName"){
+    var catHeadName = UserDefaults.standard.value(forKey: "CatHeadName") ?? "Index-CatHead-7"{
         didSet {
             self.catImageView.headView.image = UIImage(named: catHeadName as! String)
             UserDefaults.standard.setValue(catHeadName, forKey: "CatHeadName")
         }
     }
-    var personHeadName = UserDefaults.standard.value(forKey: "PersonHeadName") {
+    var personHeadName = UserDefaults.standard.value(forKey: "PersonHeadName") ?? "Index-FigureHead-2"{
         didSet {
             self.personImageView.headView.image = UIImage(named: personHeadName as! String)
             UserDefaults.standard.setValue(personHeadName, forKey: "PersonHeadName")
         }
     }
-    var catName = __(UserDefaults.standard.value(forKey: "CatName") as! String)
+    var catName = __((UserDefaults.standard.value(forKey: "CatName") ?? "猫咪") as! String)
     var first:Bool = true
 //    var index:Int = 0
 //    var text:String = ""
@@ -316,7 +316,7 @@ extension MainVC {
                 return
             }
             print(recorder.peakPower(forChannel: 0))
-            if (recorder.peakPower(forChannel: 0)) < -120 {
+            if (recorder.peakPower(forChannel: 0)) < -40 {
                 catTextAnimating(array: Array( __("没有听清猫猫的声音哦..")))
                 record!.upAction()
                 return
@@ -338,13 +338,13 @@ extension MainVC {
             record!.upAction()
             return
         }
-        if (recorder.peakPower(forChannel: 0)) < -45 {
+        if (recorder.peakPower(forChannel: 0)) < -40 {
             personTextAnimating(array: Array(__("声音太小啦，没有听清…")))
             record!.upAction()
             return
         }
         personLanguageBackground.isHidden = true
-        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...18)], withExtension: ".wav") else {
+        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...19)], withExtension: ".mp3") else {
             return
         }
         self.url  = url
@@ -453,22 +453,6 @@ extension MainVC {
 
 // MARK: - Interaction
 extension MainVC {
-    
-//    @objc func shuchu(text:String, label:UILabel) {
-//        self.text += Array(arrayLiteral: text)[index]
-//        label.text = self.text
-//        if index == text.count {
-//            index = 0
-//            timer?.invalidate()
-//        }
-////        muStr += arrr[cc] as? String ?? ""
-////        text = muStr
-////        cc += 1
-////        if cc == arrr.count {
-////            cc = 0
-////            timer.invalidate()
-////        }
-//    }
 
     @objc func catRecordTouchDown(){
         if(!UserDefaults.standard.bool(forKey: "FirstLaunchMainDown")){

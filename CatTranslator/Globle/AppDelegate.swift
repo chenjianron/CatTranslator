@@ -50,8 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.setupNotification(launchOptions: nil)
                 }
             }
-
-        
         return true
     }
 

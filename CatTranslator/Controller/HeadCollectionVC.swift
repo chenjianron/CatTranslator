@@ -225,7 +225,7 @@ extension HeadCollectionVC {
             make.right.equalToSuperview().offset(Util.isIPad ? -15.8 :  -9.57)
         }
         titleLable.snp.makeConstraints{ (make) in
-            make.width.equalTo(Util.isIPad ? 134 : 80)
+//            make.width.equalTo(Util.isIPad ? 134 : 80)
             make.height.equalTo(Util.isIPad ? 33.4 : 22)
             make.top.equalToSuperview().offset(Util.isIPad ? 54 : 35)
             make.centerX.equalToSuperview()
