@@ -47,7 +47,7 @@ class MainVC: UIViewController {
             UserDefaults.standard.setValue(personHeadName, forKey: "PersonHeadName")
         }
     }
-    var catName = UserDefaults.standard.value(forKey: "CatName")
+    var catName = __(UserDefaults.standard.value(forKey: "CatName") as! String)
     var first:Bool = true
 //    var index:Int = 0
 //    var text:String = ""
@@ -129,9 +129,10 @@ class MainVC: UIViewController {
     lazy var catLanguagelabel: UILabel = {
         let label = UILabel()
         label.text = __("请长按录制猫语…")
-        label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 12)
-        label.numberOfLines = 6
+        label.numberOfLines = 0
+        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     lazy var personLanguagelabel: UILabel = {
@@ -203,6 +204,12 @@ class MainVC: UIViewController {
         view.backgroundColor = UIColor.clear
         return view
     }()
+    lazy var catScrollView:UIScrollView = {
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        view.isScrollEnabled = true
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -255,7 +262,16 @@ extension MainVC {
         }
         catTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [self] make in
             text += String(string[index])
-            catLanguagelabel.text = text
+            if Thread.current.isMainThread {
+                catLanguagelabel.text = text
+            } else {
+                    // 切换到 main 线程，处理
+                    DispatchQueue.main.async {
+                        catLanguagelabel.text = text
+                        // 结束事件，防止造成递归循环
+                        return
+                    }
+                }
             index += 1
             if index == string.count {
                 index = 0
@@ -299,7 +315,8 @@ extension MainVC {
                 record!.upAction()
                 return
             }
-            if (recorder.peakPower(forChannel: 0)) < -45 {
+            print(recorder.peakPower(forChannel: 0))
+            if (recorder.peakPower(forChannel: 0)) < -120 {
                 catTextAnimating(array: Array( __("没有听清猫猫的声音哦..")))
                 record!.upAction()
                 return
@@ -382,6 +399,7 @@ extension MainVC {
         catImageView.headView.isUserInteractionEnabled = status
         personRecordBtn.isUserInteractionEnabled = status
         personImageView.isUserInteractionEnabled = status
+        getRootViewController()!.view.isUserInteractionEnabled = status
     }
     
     func personRecordBtnStatus(status:Bool){
@@ -539,17 +557,20 @@ extension MainVC {
     }
     
     func setUpUI(){
+        
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         navigationItem.title = __("翻译器")
         view.addSubview(catBackgroundBoard)
         view.addSubview(personBackgroundBoard)
         catBackgroundBoard.addSubview(catImageView)
         catBackgroundBoard.addSubview(catLanguageBackground)
+        catLanguageBackground.addSubview(catScrollView)
+        catScrollView.addSubview(catLanguagelabel)
         catBackgroundBoard.addSubview(catRecordBtn)
         catRecordBtn.addSubview(catRecordRightLogo)
         catRecordBtn.addSubview(catRecordLeftLogo)
         catBackgroundBoard.addSubview(catBtnlabel)
-        catLanguageBackground.addSubview(catLanguagelabel)
+//        catLanguageBackground.addSubview(catLanguagelabel)
         
         personBackgroundBoard.addSubview(personLanguageBackground)
         personBackgroundBoard.addSubview(personImageView)
@@ -628,12 +649,20 @@ extension MainVC {
             make.bottom.equalTo(-G.share.h(12))
             make.centerX.equalToSuperview()
         }
-        catLanguagelabel.snp.makeConstraints{ make in
+        catScrollView.snp.makeConstraints{ make in
+            make.width.equalTo(G.share.w(120))
             make.top.equalToSuperview().offset(G.share.h(17.5))
             make.left.equalToSuperview().offset(G.share.w(30.29))
             make.right.equalToSuperview().offset(-G.share.w(10.5))
+            make.height.equalTo(G.share.h(85))
+        }
+        catLanguagelabel.snp.makeConstraints{ make in
+            make.width.equalTo(G.share.w(120))
+            make.top.bottom.equalToSuperview()
+            make.left.right.equalToSuperview().inset(0)
         }
         personLanguagelabel.snp.makeConstraints{ make in
+            make.width.equalTo(G.share.w(120))
             make.top.equalToSuperview().offset(G.share.h(17.5))
             make.left.equalToSuperview().offset(G.share.w(12.5))
             make.right.equalToSuperview().offset(-G.share.w(30.29))

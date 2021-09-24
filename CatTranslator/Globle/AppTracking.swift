@@ -46,7 +46,7 @@ class AppTracking: NSObject {
         }
     }
     
-    func  requestIDFA() {
+    func requestIDFA(complete: @escaping () -> Void) {
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization { (status) in
                 switch status {
@@ -81,6 +81,7 @@ class AppTracking: NSObject {
                 @unknown default:
                     break
                 }
+                complete()
             }
         } else {
             if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
@@ -88,6 +89,7 @@ class AppTracking: NSObject {
             } else {
                 print("拒绝授权")
             }
+            complete()
         }
     }
 }

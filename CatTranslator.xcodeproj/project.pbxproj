@@ -20,9 +20,9 @@
 		675ECA4926F2F5E900DE9C4A /* Marketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ECA4826F2F5E900DE9C4A /* Marketing.swift */; };
 		675ECA4B26F2F70100DE9C4A /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ECA4A26F2F70100DE9C4A /* Statistics.swift */; };
 		675ECA5326F33D6B00DE9C4A /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ECA5226F33D6B00DE9C4A /* AlertVC.swift */; };
-		675ECA5526F58C7100DE9C4A /* AppTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675ECA5426F58C7100DE9C4A /* AppTracking.swift */; };
 		6781123226E4B2D900BE1BBD /* GetWidthHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6781123126E4B2D900BE1BBD /* GetWidthHeight.swift */; };
 		6781123626E4B47100BE1BBD /* HeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6781123526E4B47100BE1BBD /* HeadView.swift */; };
+		678B988026FDA36E00096723 /* AppTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678B987F26FDA36E00096723 /* AppTracking.swift */; };
 		6794C31E26E6E68E00FF28C8 /* HeadCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6794C31D26E6E68E00FF28C8 /* HeadCollectionViewCell.swift */; };
 		679AE63126E464D300E12E1D /* Localizations.strings in Resources */ = {isa = PBXBuildFile; fileRef = 679AE63326E464D300E12E1D /* Localizations.strings */; };
 		679AE63426E464D900E12E1D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 679AE63626E464D900E12E1D /* InfoPlist.strings */; };
@@ -83,10 +83,10 @@
 		675ECA4826F2F5E900DE9C4A /* Marketing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marketing.swift; sourceTree = "<group>"; };
 		675ECA4A26F2F70100DE9C4A /* Statistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		675ECA5226F33D6B00DE9C4A /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
-		675ECA5426F58C7100DE9C4A /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
 		6781123126E4B2D900BE1BBD /* GetWidthHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetWidthHeight.swift; sourceTree = "<group>"; };
 		6781123526E4B47100BE1BBD /* HeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadView.swift; sourceTree = "<group>"; };
 		678B987E26FB20EB00096723 /* CatTranslator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CatTranslator.entitlements; sourceTree = "<group>"; };
+		678B987F26FDA36E00096723 /* AppTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTracking.swift; sourceTree = "<group>"; };
 		6794C31D26E6E68E00FF28C8 /* HeadCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCollectionViewCell.swift; sourceTree = "<group>"; };
 		679AE63226E464D300E12E1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizations.strings; sourceTree = "<group>"; };
 		679AE63526E464D900E12E1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -207,8 +207,8 @@
 			isa = PBXGroup;
 			children = (
 				675ECA4826F2F5E900DE9C4A /* Marketing.swift */,
-				675ECA5426F58C7100DE9C4A /* AppTracking.swift */,
 				674F294126E0A90300A9D2B2 /* AppDelegate.swift */,
+				678B987F26FDA36E00096723 /* AppTracking.swift */,
 				675ECA4A26F2F70100DE9C4A /* Statistics.swift */,
 				674F295926E0AE0400A9D2B2 /* Constant.swift */,
 				674F296426E0C9B100A9D2B2 /* Helper.swift */,
@@ -499,7 +499,7 @@
 				675ECA4526F2D47F00DE9C4A /* SettingVC.swift in Sources */,
 				6781123626E4B47100BE1BBD /* HeadView.swift in Sources */,
 				674F294626E0A90300A9D2B2 /* PreviewPageVC.swift in Sources */,
-				675ECA5526F58C7100DE9C4A /* AppTracking.swift in Sources */,
+				678B988026FDA36E00096723 /* AppTracking.swift in Sources */,
 				67CE706626E8AA0F008E908A /* RTMAudioRecord.swift in Sources */,
 				674F296526E0C9B100A9D2B2 /* Helper.swift in Sources */,
 				675ECA4B26F2F70100DE9C4A /* Statistics.swift in Sources */,

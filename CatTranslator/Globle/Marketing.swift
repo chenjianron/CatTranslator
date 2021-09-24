@@ -27,14 +27,15 @@ class BannerWrap {
 class Marketing {
     
     static let shared = Marketing()
+    private var bannerViews: [Banner : BannerWrap] = [:]
+
+    var enterForegroundAdEndedHandler: (() -> Void)?
     
     enum Banner {
         case homeBanner
         case settingBanner
         case PlayCatBanner
     }
-    
-    private var bannerViews: [Banner : BannerWrap] = [:]
     
     func setup() {
         // UMeng
@@ -79,6 +80,13 @@ class Marketing {
         view.logoImageView.layer.cornerRadius = 16
         view.loadingLabel.text = nil
         Ad.default.setupLaunchInterstitial(launchKey: K.ParamName.LaunchInterstitial, enterForegroundKey: K.ParamName.SwitchInterstitial, loadingView: view)
+        Ad.default.launchAdEndedHandler = {
+            guard let handler = self.enterForegroundAdEndedHandler else {
+                return
+            }
+            handler()
+        }
+
         // Notification
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didLaunchOrEnterForeground),

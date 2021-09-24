@@ -44,8 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         Marketing.shared.setup()
-        setupNotification(launchOptions: launchOptions)
-        AppTracking.shared.requestIDFA()
+        Marketing.shared.enterForegroundAdEndedHandler = {
+            AppTracking.shared.requestIDFA {
+        //                (UIApplication.shared.delegate as! AppDelegate).setupNotification(launchOptions: nil)
+                self.setupNotification(launchOptions: nil)
+                }
+            }
+
         
         return true
     }

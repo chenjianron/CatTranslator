@@ -36,6 +36,7 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     lazy var progressView: UIProgressView = {
@@ -131,6 +132,8 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         textlabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(G.share.w(32))
+            make.right.equalToSuperview().offset(-G.share.w(8))
         }
         progressView.snp.makeConstraints{ make in
             make.width.equalTo(G.share.w(100))

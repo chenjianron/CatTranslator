@@ -132,7 +132,7 @@ extension AlertVC {
         textLabel.snp.makeConstraints{ make in
             make.top.equalToSuperview().offset(31.3)
             make.left.equalTo(31.31)
-            make.width.equalTo(150)
+            make.width.equalTo(220)
         }
         textField.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
