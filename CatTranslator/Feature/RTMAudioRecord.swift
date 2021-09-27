@@ -67,9 +67,9 @@ class RTMAudioRecord: NSObject{
     //松开按钮，结束录音
     @IBAction func upAction() {
         //停止录音
-        recorder?.stop()
+        recorder?.pause()
         //录音器释放
-        recorder = nil
+//        recorder = nil
         //暂停定时器
 //        volumeTimer.invalidate()
 //        volumeTimer = nil
@@ -80,7 +80,6 @@ class RTMAudioRecord: NSObject{
     @IBAction func playAction(_ url: URL){
         //播放
         player = try! AVAudioPlayer(contentsOf: url)
-        
         if player == nil {
             print("播放失败")
         } else {

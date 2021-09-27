@@ -74,10 +74,6 @@ extension SettingVC {
         Statistics.event(.SettingsTap, label: "修改昵称")
     }
     
-    func help(){
-        
-    }
-    
     func feedback(){
         Statistics.event(.SettingsTap, label: "意见反馈")
         if MFMailComposeViewController.canSendMail() {

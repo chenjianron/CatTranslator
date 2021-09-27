@@ -97,7 +97,6 @@ class Marketing {
         bannerViews[.settingBanner] = .init(presetKey: K.ParamName.SettingPageBanner, homeKey: K.ParamName.SettingPageBanner)
         bannerViews[.PlayCatBanner] = .init(presetKey: K.ParamName.PlayCatBanner, homeKey: K.ParamName.PlayCatBanner)
     }
-    
 }
 
 // MARK: - Public
@@ -127,7 +126,7 @@ extension Marketing {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             let d = Preset.named(K.ParamName.pushAlertDays).intValue
             let interval = 24 * 60 * 60 * d
-            counter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(interval))
+            counter.pausedUntilDate = Date().addingTimeInterval(TimeInterval(interval))
         }
     }
     
@@ -142,7 +141,7 @@ extension Marketing {
             } else {
                 // Fallback on earlier versions
             }
-            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
+            rtCounter.pausedUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
         }
     }
     
@@ -157,7 +156,7 @@ extension Marketing {
             } else {
                 // Fallback on earlier versions
             }
-            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
+            rtCounter.pausedUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
         }
     }
     
@@ -172,7 +171,7 @@ extension Marketing {
             } else {
                 // Fallback on earlier versions
             }
-            rtCounter.limitsHitsMaxUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
+            rtCounter.pausedUntilDate = Date().addingTimeInterval(TimeInterval(60 * 60 * Preset.named(K.ParamName.RTTime).intValue))
         }
     }
 }

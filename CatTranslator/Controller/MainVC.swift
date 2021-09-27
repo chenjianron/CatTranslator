@@ -306,54 +306,53 @@ extension MainVC {
     //判断猫录音后的录音时长和音量
     func judgeCatRecord(){
         let ctx = Ad.default.interstitialSignal(key: K.ParamName.RecordInterstitial)
+        record!.upAction()
         ctx.didEndAction = { [self] _ in
             guard let recorder = record?.recorder else {
                 return
             }
             if recorder.currentTime <= 3 {
                 catTextAnimating(array: Array( __("录制时间太短，请录制3s以上哦..")))
-                record!.upAction()
                 return
             }
             print(recorder.peakPower(forChannel: 0))
             if (recorder.peakPower(forChannel: 0)) < -40 {
                 catTextAnimating(array: Array( __("没有听清猫猫的声音哦..")))
-                record!.upAction()
                 return
             }
-            Marketing.shared.didCatTranslatorRT()
             catTextAnimating(array: Array( catName as! String + ": " + Quotations[Int.random(in: 0...49)]))
-            record!.upAction()
+            Marketing.shared.didCatTranslatorRT()
         }
     }
     
     //判断人录音后的录音时长和音量
     func judgePersonRecord(){
-        guard let recorder = record?.recorder else {
-            return
-        }
-        print(record!.recorder!.peakPower(forChannel: 0))
-        if recorder.currentTime <= 3 {
-            personTextAnimating(array: Array(__("录制时间太短，请录制3s以上哦..")))
-            record!.upAction()
-            return
-        }
-        if (recorder.peakPower(forChannel: 0)) < -40 {
-            personTextAnimating(array: Array(__("声音太小啦，没有听清…")))
-            record!.upAction()
-            return
-        }
-        personLanguageBackground.isHidden = true
-        guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...19)], withExtension: ".mp3") else {
-            return
-        }
-        self.url  = url
-        player = try! AVAudioPlayer(contentsOf: self.url!)
-        audioLable.text = Int(player!.duration).description + "″"
-        audioBtn.isHidden = false
-        audioBtn.isUserInteractionEnabled = true
-        first = true
+        let ctx = Ad.default.interstitialSignal(key: K.ParamName.RecordInterstitial)
         record!.upAction()
+        ctx.didEndAction = { [self] _ in
+            guard let recorder = record?.recorder else {
+                return
+            }
+            print(record!.recorder!.peakPower(forChannel: 0))
+            if recorder.currentTime <= 3 {
+                personTextAnimating(array: Array(__("录制时间太短，请录制3s以上哦..")))
+                return
+            }
+            if (recorder.peakPower(forChannel: 0)) < -40 {
+                personTextAnimating(array: Array(__("声音太小啦，没有听清…")))
+                return
+            }
+            personLanguageBackground.isHidden = true
+            guard let url = Bundle.main.url(forResource: audio[Int.random(in: 0...19)], withExtension: ".mp3") else {
+                return
+            }
+            self.url  = url
+            player = try! AVAudioPlayer(contentsOf: self.url!)
+            audioLable.text = Int(player!.duration).description + "″"
+            audioBtn.isHidden = false
+            audioBtn.isUserInteractionEnabled = true
+            first = true
+        }
     }
     
     //判断是哪一个录音按钮点击了

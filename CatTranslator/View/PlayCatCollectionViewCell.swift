@@ -151,6 +151,5 @@ extension PlayCatCollectionViewCell: AVAudioPlayerDelegate {
         restoreStatus()
         Ad.default.interstitialSignal(key: K.ParamName.RecordInterstitial)
     }
-
 }
 

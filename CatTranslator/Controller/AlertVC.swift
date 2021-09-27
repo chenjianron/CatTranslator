@@ -162,5 +162,4 @@ extension AlertVC {
             make.left.equalTo(VView.snp.right)
         }
     }
-    
 }
