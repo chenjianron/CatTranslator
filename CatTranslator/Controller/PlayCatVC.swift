@@ -136,12 +136,15 @@ extension PlayCatVC {
             player?.stop()
             playCatCollectionView?.restoreStatus()
         }
-        playCatCollectionView = cell
-        self.url = url
-        player = try! AVAudioPlayer(contentsOf: url)
-        player!.delegate = playCatCollectionView
-        player!.play()
-        playCatCollectionView?.changeStatus()
+        let ctx = Ad.default.interstitialSignal(key: K.ParamName.PrePlayAudioInterstitial)
+        ctx.didEndAction = {  [self] _ in
+            playCatCollectionView = cell
+            self.url = url
+            player = try! AVAudioPlayer(contentsOf: url)
+            player!.delegate = playCatCollectionView
+            player!.play()
+            playCatCollectionView?.changeStatus()
+        }
      }
     
 }
@@ -194,6 +197,9 @@ extension PlayCatVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if kind == UICollectionView.elementKindSectionHeader {
             let label = UILabel(frame: CGRect(x: G.share.w(30.5), y: 15.5,width: 100, height: 20))
+            let view = UIView(frame: CGRect(x:(G.share.w(29.5)),y:28,width: Util.isIPad ? 33:27.5,height: 5))
+            view.backgroundColor = UIColor(hex: 0xFF9AB2)
+            view.layer.cornerRadius = 4
             label.textAlignment = .left
             label.textColor = UIColor.black
             label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -201,9 +207,11 @@ extension PlayCatVC: UICollectionViewDelegate, UICollectionViewDataSource {
             reusableView!.backgroundColor = UIColor.white
             if indexPath.section == 0 {
                 label.text = __("心情")
+                reusableView?.addSubview(view)
                 reusableView?.addSubview(label)
             } else {
                 label.text = __("日常")
+                reusableView?.addSubview(view)
                 reusableView?.addSubview(label)
             }
         }

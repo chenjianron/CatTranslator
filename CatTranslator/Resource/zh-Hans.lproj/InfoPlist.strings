@@ -8,4 +8,5 @@
 
 // 已翻译
 "NSUserTrackingUsageDescription"="该标识符将用于向您投放个性化广告。";
-"我们需要访问麦克风以录制声音"="我们需要访问麦克风以录制声音";
+"NSUserMicrophoneUsageDescription"="我们需要访问麦克风以录制声音";
+"CFBundleDisplayName"="猫语翻译器";

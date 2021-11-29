@@ -8,4 +8,5 @@
 
 // 已翻译
 "NSUserTrackingUsageDescription"="この識別子は、パーソナライズされた広告を配信するために使用されます。";
-"我们需要访问麦克风以录制声音"="録音するにはマイクにアクセスする必要があります";
+"NSMicrophoneUsageDescription"="録音するにはマイクにアクセスする必要があります";
+"CFBundleDisplayName"="猫語翻訳";

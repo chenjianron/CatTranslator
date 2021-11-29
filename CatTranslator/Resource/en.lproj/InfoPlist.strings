@@ -8,4 +8,5 @@
 
 // 已翻译
 "NSUserTrackingUsageDescription"="This identifier will be used to deliver personalized ads to you.";
-"我们需要访问麦克风以录制声音"="We need access to the microphone to record";
+"NSUserMicrophoneUsageDescription"="We need access to the microphone to record";
+"CFBundleDisplayName"="Cat Translator";

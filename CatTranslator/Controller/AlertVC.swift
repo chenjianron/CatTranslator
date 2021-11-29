@@ -76,7 +76,6 @@ class AlertVC: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
-        
     }
     
     required init?(coder: NSCoder) {

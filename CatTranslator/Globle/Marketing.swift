@@ -58,6 +58,7 @@ class Marketing {
                                         K.ParamName.LaunchInterstitial : 5,
                                         K.ParamName.SwitchInterstitial : 5,
                                         K.ParamName.RecordInterstitial: 10,
+                                        K.ParamName.PrePlayAudioInterstitial: 10,
                                         K.ParamName.PlayAudioInterstitial:10,
                                         
                                         K.ParamName.ShareRT: 1,
@@ -79,6 +80,7 @@ class Marketing {
         }
         view.logoImageView.layer.cornerRadius = 16
         view.loadingLabel.text = nil
+        
         Ad.default.setupLaunchInterstitial(launchKey: K.ParamName.LaunchInterstitial, enterForegroundKey: K.ParamName.SwitchInterstitial, loadingView: view)
         Ad.default.launchAdEndedHandler = {
             guard let handler = self.enterForegroundAdEndedHandler else {

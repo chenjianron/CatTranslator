@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -358,6 +358,7 @@
 		674F293626E0A90200A9D2B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
@@ -689,13 +690,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CatTranslator/CatTranslator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BYLX9G7HJ9;
+				DEVELOPMENT_TEAM = 9565M6S6WS;
 				INFOPLIST_FILE = CatTranslator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = GC.CatTranslator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huang.catranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatTranslator/Globle/CatTranslator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -711,13 +712,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CatTranslator/CatTranslator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BYLX9G7HJ9;
+				DEVELOPMENT_TEAM = 9565M6S6WS;
 				INFOPLIST_FILE = CatTranslator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = GC.CatTranslator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.huang.catranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CatTranslator/Globle/CatTranslator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

@@ -24,3 +24,4 @@ class G {
         return CGFloat(Float(fullScreenSize.height) * ( height / Float(IPhone11ProHeigth)))
     }
 }
+

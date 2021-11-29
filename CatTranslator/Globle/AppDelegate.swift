@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //                (UIApplication.shared.delegate as! AppDelegate).setupNotification(launchOptions: nil)
                 self.setupNotification(launchOptions: nil)
                 }
-            }
+        }
         return true
     }
 

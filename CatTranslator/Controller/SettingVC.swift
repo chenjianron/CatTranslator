@@ -37,16 +37,14 @@ class SettingVC: UIViewController {
         object.separatorStyle = .none
         object.sectionFooterHeight = .zero
         object.register(SettingTableViewCell.classForCoder(), forCellReuseIdentifier: CellID)
-        
         return object
     }()
-    lazy var appsView: UIView = SettingsFeaturedApps.createAppsView(width: self.view.width)
+//    lazy var appsView: UIView = SettingsFeaturedApps.createAppsView(width: self.view.width)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
-        setupAdBannerView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -219,21 +217,24 @@ extension SettingVC {
         view.backgroundColor = .white
         navigationItem.leftBarButtonItem = leftBarBtn
         view.addSubview(tableView)
-        view.addSubview(appsView)
+        setupAdBannerView()
+        if SettingsFeaturedApps.apps.count > 0 {
+            tableView.tableHeaderView = SettingsFeaturedApps.createAppsView(width: self.view.width)
+        }
         setupConstraints()
     }
     
     func setupConstraints(){
-        appsView.snp.makeConstraints{ make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(appsView.height)
-        }
+//        appsView.snp.makeConstraints{ make in
+//            make.top.equalTo(safeAreaTop)
+//            make.centerX.equalToSuperview()
+//            make.width.equalToSuperview()
+//            make.height.equalTo(appsView.height)
+//        }
         tableView.snp.makeConstraints{ make in
-            make.top.equalTo(safeAreaTop).offset(appsView.height)
+            make.top.equalTo(safeAreaTop).offset(0)
             make.width.equalToSuperview()
-            make.height.equalToSuperview()
+            make.bottom.equalTo(safeAreaBottom).offset(-bannerInset)
         }
     }
     

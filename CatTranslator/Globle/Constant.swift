@@ -18,7 +18,7 @@ struct K {
     
     struct IDs {
         
-        static let AppID = "1571453641"
+        static let AppID = "1590135968"
         //        static let GroupName = "group.com.softin.ScreenRecorder3"
         static let UMengKey = "613eecc11c91e0671ba12083"
         
@@ -29,29 +29,15 @@ struct K {
         static let Secret = "CatTranslator/\(Util.appVersion())/meto.otf"
         static let adMobAppId = "ca-app-pub-1526777558889812~7586155130"
         
-        //        #if DEBUG
-        //        static let BannerUnitID = "ca-app-pub-1526777558889812/1928241607"
-        //        static let InterstitialUnitID = "ca-app-pub-1526777558889812/3463016257"
-        //        static let InterstitialTransferUnitID = "ca-app-pub-1526777558889812/7318786197"
-        //        static let RewardUnitID = "ca-app-pub-3940256099942544/1712485313"
-        //        #else
-        //        static let BannerUnitID = "ca-app-pub-1526777558889812/1928241607"
-        //        static let InterstitialUnitID = "ca-app-pub-1526777558889812/3463016257"
-        //        static let InterstitialSaveUnitID = "ca-app-pub-1526777558889812/2930324944"
-        //        static let InterstitialTransferUnitID = "ca-app-pub-1526777558889812/7318786197"
-        //        static let RewardUnitID = "ca-app-pub-1526777558889812/5423421726"
-        //        #endif
-        
-//        #if DEBUG
+        #if DEBUG
         static let BannerUnitID = "ca-app-pub-3940256099942544/2934735716"
         static let InterstitialUnitID = "ca-app-pub-3940256099942544/4411468910"
         static let InterstitialTransferUnitID = "ca-app-pub-3940256099942544/4411468910"
-//        #else
-//           static let BannerUnitID = "ca-app-pub-1526777558889812/7913458197"
-//           static let InterstitialUnitID = "ca-app-pub-1526777558889812/5813908460"
-//           static let InterstitialSaveUnitID = "ca-app-pub-1526777558889812/4768420100"
-//        #endif
-        
+        #else
+           static let BannerUnitID = "ca-app-pub-1526777558889812/7913458197"
+           static let InterstitialUnitID = "ca-app-pub-1526777558889812/5813908460"
+           static let InterstitialSaveUnitID = "ca-app-pub-1526777558889812/4768420100"
+        #endif
     }
     
     struct Share {
@@ -60,8 +46,8 @@ struct K {
     }
     
     struct Website {
-        static let PrivacyPolicy = "https://websprints.github.io/PasteKeyboard/PrivacyPolicy.html"
-        static let UserAgreement = "https://websprints.github.io/PasteKeyboard/UserAgreement.html"
+        static let PrivacyPolicy = "https://websprints.github.io/CatTranslator/PrivacyPolicy.html"
+        static let UserAgreement = "https://websprints.github.io/CatTranslator/UserAgreement.html"
     }
     
     struct Color {
@@ -82,14 +68,14 @@ struct K {
         static let SwitchInterstitial = "p1-2" // 每N次进入前台弹出插屏广告
         static let RecordInterstitial = "p1-3"
         static let PlayAudioInterstitial = "p1-4"
+        static let PrePlayAudioInterstitial = "p1-5"
         
         static let ShareRT = "p2-1" //分享后返回设置页弹窗
         static let CatTranslatorRT = "p2-2" //猫语翻译后弹窗
         static let EnterRT = "p2-3" //启动/返回应用弹窗
         
         static let pushAlertDays = "p3-1" // 用户未允许通知提醒，每隔N天后弹出通知提醒
-        static let RTTime = "p3-0"  //评论间隔小时
-        
+        static let RTTime = "p3-2"  //评论间隔小时
     }
     
     struct NotificationName {

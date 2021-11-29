@@ -23,11 +23,18 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
     
     lazy var catHeadView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     lazy var audioBtn: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
+        button.backgroundColor = UIColor(hex: 0xFF6D92)
+        button.layer.cornerRadius = G.share.w(10)
+//        if Util.isIPad {
+//            button.setBackgroundImage(UIImage(named: "iPad-AudioImage"), for: .normal)
+//        } else {
+//            button.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
+//        }
         button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(playRecord), for: .touchUpInside)
         return button
@@ -75,7 +82,8 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
     func changeStatus(){
         textlabel.isHidden = true
         progressView.isHidden = false
-        audioBtn.setBackgroundImage(#imageLiteral(resourceName: "Audio-Selected"), for: .normal)
+//        audioBtn.setBackgroundImage(#imageLiteral(resourceName: "Audio-Selected"), for: .normal)
+        audioBtn.backgroundColor = UIColor(hex: 0xFFADC2)
         audioLogo.startAnimating()
         time = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (ktimer) in
             self.progressView.progress = Float((self.master?.player!.currentTime)!)/Float((self.master?.player!.duration)!)
@@ -87,9 +95,14 @@ class PlayCatCollectionViewCell: UICollectionViewCell {
         progressView.progress = 0
         progressView.isHidden = true
         audioLogo.stopAnimating()
-        audioBtn.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
+        audioBtn.backgroundColor = UIColor(hex: 0xFF6D92)
+//        audioBtn.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
+//        if Util.isIPad {
+//            audioBtn.setBackgroundImage(UIImage(named: "iPad-AudioImage"), for: .normal)
+//        } else {
+//            audioBtn.setBackgroundImage(#imageLiteral(resourceName: "AudioImage"), for: .normal)
+//        }
         time?.invalidate()
-        
     }
     
     func setUpUI(){

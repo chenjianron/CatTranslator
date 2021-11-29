@@ -16,7 +16,6 @@ enum headType {
 
 class MainVC: UIViewController {
     
-    var currentType:headType?
     var url:URL?
     var player:AVAudioPlayer?
     var catTimer:Timer?
@@ -58,24 +57,33 @@ class MainVC: UIViewController {
     }()
     lazy var catBackgroundBoard: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "CatHeadBackground")
+        imageView.backgroundColor = UIColor(hex: 0xE3F7FE)
+        imageView.layer.cornerRadius = G.share.w(10)
+//        imageView.image = #imageLiteral(resourceName: "CatHeadBackground")
+        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     lazy var personBackgroundBoard: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "PersonHeadBackground")
+        imageView.backgroundColor = UIColor(hex: 0xFEF2F4)
+        imageView.layer.cornerRadius = G.share.w(10)
+//        imageView.image = #imageLiteral(resourceName: "PersonHeadBackground")
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     lazy var catLanguageBackground: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleToFill
         imageView.image = #imageLiteral(resourceName: "CatLanguageBackground")
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     lazy var personLanguageBackground: UIImageView = {
         let imageView = UIImageView()
+        if !Util.isIPad {
+            imageView.contentMode = .scaleAspectFill
+        }
         imageView.image = #imageLiteral(resourceName: "PersonLanguageBackground")
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -97,6 +105,7 @@ class MainVC: UIViewController {
         button.adjustsImageWhenHighlighted = false
         button.tag = 1
         button.setImage(#imageLiteral(resourceName: "CatRecordBtn"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(recordAuthority(button:)), for: .touchDown)
         button.addTarget(self, action: #selector(catRecord), for: .touchUpInside)
         button.addTarget(self, action: #selector(catRecord), for: .touchUpOutside)
@@ -107,6 +116,7 @@ class MainVC: UIViewController {
         button.adjustsImageWhenHighlighted = false
         button.tag = 2
         button.setImage(#imageLiteral(resourceName: "PersonRecordBtn"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(recordAuthority(button:)), for: .touchDown)
         button.addTarget(self, action: #selector(personRecord), for: .touchUpInside)
         button.addTarget(self, action: #selector(personRecord), for: .touchUpOutside)
@@ -146,6 +156,7 @@ class MainVC: UIViewController {
     lazy var audioBtn: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(#imageLiteral(resourceName: "RecordBackground"), for: .normal)
+        button.contentMode = .scaleAspectFill
         button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(firstPlay), for: .touchUpInside)
         button.isHidden = true
@@ -414,7 +425,7 @@ extension MainVC {
         if !status {
             personRecordRightLogo.startAnimating()
             personRecordLeftLogo.startAnimating()
-        }else {
+        } else {
             personRecordRightLogo.stopAnimating()
             personRecordLeftLogo.stopAnimating()
 //            personRecordBtn.setImage(#imageLiteral(resourceName: "PersonRecordBtn"), for: .normal)
@@ -423,6 +434,7 @@ extension MainVC {
         personImageView.headView.isUserInteractionEnabled = status
         catImageView.headView.isUserInteractionEnabled = status
         catRecordBtn.isUserInteractionEnabled = status
+        getRootViewController()!.view.isUserInteractionEnabled = status
     }
     
     //麦克风权限
@@ -573,7 +585,7 @@ extension MainVC {
     func setUpConstrains(){
         
         catBackgroundBoard.snp.makeConstraints{ make in
-            make.width.equalTo(G.share.w(332))
+            make.width.equalTo( G.share.w(332))
             make.height.equalTo(G.share.h(231))
             make.top.equalTo(safeAreaTop).offset(G.share.h(30)+bannerInset)
             make.centerX.equalToSuperview()
@@ -598,7 +610,7 @@ extension MainVC {
         }
         catLanguageBackground.snp.makeConstraints{ make in
             make.width.equalTo(G.share.w(161))
-            make.height.equalTo(G.share.h(103))
+            make.height.equalTo( G.share.h(103))
             make.top.equalToSuperview().offset(G.share.h(24.5))
             make.right.equalToSuperview().offset(-G.share.w(20))
         }
@@ -609,20 +621,18 @@ extension MainVC {
             make.left.equalToSuperview().offset(G.share.w(28.3))
         }
         catRecordBtn.snp.makeConstraints{ make in
-            make.width.equalTo(G.share.w(63))
+            make.width.equalTo(63)
             make.height.equalTo(G.share.h(41))
             make.bottom.equalTo(-35.5)
             make.centerX.equalToSuperview()
         }
         personRecordBtn.snp.makeConstraints{ make in
-            make.width.equalTo(G.share.w(63))
+            make.width.equalTo(63)
             make.height.equalTo(G.share.h(41))
             make.bottom.equalTo(-35.5)
             make.centerX.equalToSuperview()
         }
         catBtnlabel.snp.makeConstraints { make in
-//            make.width.equalTo(G.share.w(24))
-//            make.height.equalTo(G.share.h(17))
             make.bottom.equalTo(-G.share.h(12))
             make.centerX.equalToSuperview()
         }
